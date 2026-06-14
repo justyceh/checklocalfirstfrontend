@@ -1,10 +1,14 @@
+import Link from 'next/link';
 import type { ServiceResult } from '@/lib/types';
 
 export default function ServiceResultCard({ service }: { service: ServiceResult }) {
   const biz = service.businesses;
 
   return (
-    <article className="flex flex-col gap-2 rounded-xl border border-black/10 bg-white p-5 shadow-sm transition-shadow hover:shadow-md">
+    <Link
+      href={`/businesses/${biz.slug}`}
+      className="flex flex-col gap-2 rounded-xl border border-black/10 bg-white p-5 shadow-sm transition-shadow hover:shadow-md"
+    >
       <div className="flex items-start justify-between gap-3">
         <h2 className="text-lg font-semibold text-[#1a1a1a] leading-snug">{biz.name}</h2>
         <span className="shrink-0 rounded-full bg-[#3a6e3f]/10 px-3 py-1 text-xs font-medium text-[#3a6e3f]">
@@ -34,22 +38,7 @@ export default function ServiceResultCard({ service }: { service: ServiceResult 
             {biz.phone}
           </span>
         )}
-        {biz.website && (
-          <a
-            href={biz.website}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 text-[#3a6e3f] hover:underline"
-          >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <circle cx="12" cy="12" r="10" />
-              <line x1="2" y1="12" x2="22" y2="12" />
-              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-            </svg>
-            {biz.website.replace(/^https?:\/\//, '')}
-          </a>
-        )}
       </div>
-    </article>
+    </Link>
   );
 }

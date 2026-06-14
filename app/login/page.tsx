@@ -39,7 +39,21 @@ export default function LoginPage() {
         email: data.email,
         accountType: data.accountType,
       })
-      router.push('/dashboard')
+      if (data.accountType !== 'business') {
+        router.push('/')
+      } else {
+        const allBizRes = await fetch(`${API_BASE_URL}businesses`)
+        const allBiz = allBizRes.ok ? await allBizRes.json() : []
+        const biz = allBiz.find((b: { owner_user_id?: string }) => b.owner_user_id === data.user_id)
+        if (biz) {
+          const svcRes = await fetch(`${API_BASE_URL}businesses/${biz.slug}/services`)
+          const svcBody = svcRes.ok ? await svcRes.json() : { data: [] }
+          const hasServices = (svcBody.data ?? []).length > 0
+          router.push(hasServices ? '/dashboard' : '/dashboard/setup')
+        } else {
+          router.push('/dashboard')
+        }
+      }
     } catch {
       setError('Could not reach the server.')
     } finally {
@@ -48,7 +62,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#f7f7f5] px-5 pb-16 pt-24">
+    <main className="min-h-screen bg-[#f7f7f5] px-5 pb-16 pt-24">
       <div className="mx-auto w-full max-w-sm rounded-2xl border border-black/10 bg-white p-8 shadow-sm">
         <Link href="/" className="mb-6 block text-sm font-medium text-[#3a6e3f] hover:underline">
           ← Back to home
@@ -105,6 +119,6 @@ export default function LoginPage() {
           <Link href="/signup" className="font-medium text-[#3a6e3f] hover:underline">Sign up →</Link>
         </p>
       </div>
-    </div>
+    </main>
   )
 }

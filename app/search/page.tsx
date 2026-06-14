@@ -1,8 +1,21 @@
+import type { Metadata } from 'next';
 import { API_BASE_URL } from '@/lib/constants';
 import type { ServiceResult } from '@/lib/types';
 import ServiceResultCard from '@/components/ServiceResultCard';
 import SearchBar from '@/components/SearchBar';
 import { CATEGORIES } from '@/lib/constants';
+
+export const metadata: Metadata = {
+  title: 'Search Local Reno Businesses | Check Local First',
+  description: 'Search for local businesses and services in Reno, Nevada. Find exactly what you need from real local shops on Check Local First.',
+  alternates: { canonical: '/search' },
+  openGraph: {
+    title: 'Search Local Reno Businesses | Check Local First',
+    description: 'Search for local businesses and services in Reno, Nevada. Find exactly what you need from real local shops on Check Local First.',
+    type: 'website',
+    url: '/search',
+  },
+};
 
 export default async function SearchPage({
   searchParams,
@@ -15,14 +28,14 @@ export default async function SearchPage({
 
   if (!query && !cat) {
     return (
-      <div className="min-h-screen bg-[#f7f7f5] pt-20 pb-16 px-5">
+      <main className="min-h-screen bg-[#f7f7f5] pt-20 pb-16 px-5">
         <div className="mx-auto max-w-2xl pt-12">
           <h1 className="mb-6 text-3xl font-bold tracking-tight text-[#1a1a1a]">
             Find local businesses
           </h1>
           <SearchBar defaultQuery="" defaultCategory="" />
         </div>
-      </div>
+      </main>
     );
   }
 
@@ -47,7 +60,7 @@ export default async function SearchPage({
   const categoryLabel = CATEGORIES.find(c => c.slug === cat)?.name;
 
   return (
-    <div className="min-h-screen bg-[#f7f7f5] pt-20 pb-16 px-5">
+    <main className="min-h-screen bg-[#f7f7f5] pt-20 pb-16 px-5">
       <div className="mx-auto max-w-5xl">
         <SearchBar defaultQuery={query} defaultCategory={cat} />
 
@@ -89,6 +102,6 @@ export default async function SearchPage({
           </div>
         )}
       </div>
-    </div>
+    </main>
   );
 }

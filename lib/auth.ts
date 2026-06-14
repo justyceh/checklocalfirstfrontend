@@ -20,3 +20,8 @@ export function getAuth(): AuthState | null {
 export function clearAuth(): void {
   localStorage.removeItem(AUTH_KEY)
 }
+
+export function getAuthHeaders(): Record<string, string> {
+  const auth = getAuth()
+  return auth ? { Authorization: `Bearer ${auth.access_token}` } : {}
+}

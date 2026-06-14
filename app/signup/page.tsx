@@ -168,7 +168,7 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#f7f7f5] px-5 pb-16 pt-24">
+    <main className="min-h-screen bg-[#f7f7f5] px-5 pb-16 pt-24">
       <div className="mx-auto w-full max-w-lg rounded-2xl border border-black/10 bg-white p-8 shadow-sm">
         <Link href="/" className="mb-6 block text-sm font-medium text-[#3a6e3f] hover:underline">
           ← Back to home
@@ -181,8 +181,8 @@ export default function SignupPage() {
           <button
             onClick={() => { setTab('user'); setError('') }}
             className={tab === 'user'
-              ? 'cursor-pointer rounded-full border-[1.5px] border-[#3a6e3f] bg-[#3a6e3f] px-4 py-[7px] text-sm font-semibold text-white transition-colors'
-              : 'cursor-pointer rounded-full border-[1.5px] border-black/20 bg-transparent px-4 py-[7px] text-sm text-[#555] transition-colors hover:border-[#3a6e3f]/60 hover:text-[#3a6e3f]'
+              ? 'cursor-pointer rounded-full border-[1.5px] border-[#3a6e3f] bg-[#3a6e3f] px-4 py-1.75 text-sm font-semibold text-white transition-colors'
+              : 'cursor-pointer rounded-full border-[1.5px] border-black/20 bg-transparent px-4 py-1.75 text-sm text-[#555] transition-colors hover:border-[#3a6e3f]/60 hover:text-[#3a6e3f]'
             }
           >
             Personal Account
@@ -190,8 +190,8 @@ export default function SignupPage() {
           <button
             onClick={() => { setTab('business'); setError('') }}
             className={tab === 'business'
-              ? 'cursor-pointer rounded-full border-[1.5px] border-[#3a6e3f] bg-[#3a6e3f] px-4 py-[7px] text-sm font-semibold text-white transition-colors'
-              : 'cursor-pointer rounded-full border-[1.5px] border-black/20 bg-transparent px-4 py-[7px] text-sm text-[#555] transition-colors hover:border-[#3a6e3f]/60 hover:text-[#3a6e3f]'
+              ? 'cursor-pointer rounded-full border-[1.5px] border-[#3a6e3f] bg-[#3a6e3f] px-4 py-1.75 text-sm font-semibold text-white transition-colors'
+              : 'cursor-pointer rounded-full border-[1.5px] border-black/20 bg-transparent px-4 py-1.75 text-sm text-[#555] transition-colors hover:border-[#3a6e3f]/60 hover:text-[#3a6e3f]'
             }
           >
             Business Account
@@ -210,6 +210,6 @@ export default function SignupPage() {
           <Link href="/login" className="font-medium text-[#3a6e3f] hover:underline">Log in →</Link>
         </p>
       </div>
-    </div>
+    </main>
   )
 }
