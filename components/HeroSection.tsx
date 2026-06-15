@@ -10,7 +10,7 @@ export default function HeroSection() {
 
   function handleSearch() {
     const q = query.trim();
-    if (!q && !selectedCategory) return;
+    if (!q && !selectedCategory) { router.push('/search'); return; }
     const params = new URLSearchParams();
     if (q) params.set('q', q);
     if (selectedCategory) params.set('category', selectedCategory);

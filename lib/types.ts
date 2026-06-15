@@ -1,3 +1,9 @@
+export type Category = {
+  id: string
+  name: string
+  slug: string
+}
+
 export type Business = {
   id: string
   owner_user_id?: string

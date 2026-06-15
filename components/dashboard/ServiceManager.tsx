@@ -1,7 +1,7 @@
 'use client'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { API_BASE_URL } from '@/lib/constants';
-import type { BusinessService } from '@/lib/types';
+import type { BusinessService, Category } from '@/lib/types';
 
 const INPUT = 'w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-[#374151] outline-none transition-colors focus:border-[#3a6e3f] focus:ring-1 focus:ring-[#3a6e3f]';
 const LABEL = 'mb-1 block text-sm font-medium text-[#333]';
@@ -12,20 +12,22 @@ type Props = {
   authHeader: Record<string, string>;
 };
 
-type ServiceFormState = { name: string; description: string; price: string };
-const emptyForm: ServiceFormState = { name: '', description: '', price: '' };
+type ServiceFormState = { name: string; description: string; price: string; category_id: string };
+const emptyForm: ServiceFormState = { name: '', description: '', price: '', category_id: '' };
 
 function toPayload(f: ServiceFormState) {
   return {
     name: f.name,
     description: f.description,
     price: f.price !== '' ? parseFloat(f.price) : null,
-    category_id: null,
+    category_id: f.category_id,
   };
 }
 
 export default function ServiceManager({ slug, initialServices, authHeader }: Props) {
   const [services, setServices] = useState(initialServices);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [categoriesLoading, setCategoriesLoading] = useState(true);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [showAdd, setShowAdd] = useState(false);
   const [addForm, setAddForm] = useState<ServiceFormState>(emptyForm);
@@ -33,6 +35,20 @@ export default function ServiceManager({ slug, initialServices, authHeader }: Pr
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    async function loadCategories() {
+      try {
+        const res = await fetch(`${API_BASE_URL}categories`);
+        if (res.ok) {
+          const body = await res.json();
+          setCategories(body.data ?? []);
+        }
+      } catch {}
+      setCategoriesLoading(false);
+    }
+    loadCategories();
+  }, []);
 
   async function handleAdd(e: React.FormEvent) {
     e.preventDefault();
@@ -67,6 +83,7 @@ export default function ServiceManager({ slug, initialServices, authHeader }: Pr
       name: service.name,
       description: service.description ?? '',
       price: service.price != null ? String(service.price) : '',
+      category_id: service.category_id ?? '',
     });
     setError('');
     setShowAdd(false);
@@ -84,7 +101,7 @@ export default function ServiceManager({ slug, initialServices, authHeader }: Pr
       });
       if (res.ok) {
         setServices(ss => ss.map(s => s.id === id
-          ? { ...s, name: editForm.name, description: editForm.description, price: editForm.price !== '' ? parseFloat(editForm.price) : null }
+          ? { ...s, name: editForm.name, description: editForm.description, price: editForm.price !== '' ? parseFloat(editForm.price) : null, category_id: editForm.category_id }
           : s
         ));
         setEditingId(null);
@@ -145,6 +162,21 @@ export default function ServiceManager({ slug, initialServices, authHeader }: Pr
             <textarea className={INPUT + ' resize-none'} rows={2} value={addForm.description} onChange={e => setAddForm(f => ({ ...f, description: e.target.value }))} placeholder="Brief description of the service" />
           </div>
           <div>
+            <label className={LABEL}>Category</label>
+            <select
+              className={INPUT}
+              value={addForm.category_id}
+              onChange={e => setAddForm(f => ({ ...f, category_id: e.target.value }))}
+              required
+              disabled={categoriesLoading}
+            >
+              <option value="">{categoriesLoading ? 'Loading…' : 'Select a category…'}</option>
+              {categories.map(c => (
+                <option key={c.id} value={c.id}>{c.name}</option>
+              ))}
+            </select>
+          </div>
+          <div>
             <label className={LABEL}>Price <span className="text-[#aaa] font-normal">(optional)</span></label>
             <input className={INPUT} type="number" step="0.01" min="0" value={addForm.price} onChange={e => setAddForm(f => ({ ...f, price: e.target.value }))} placeholder="0.00" />
           </div>
@@ -177,6 +209,21 @@ export default function ServiceManager({ slug, initialServices, authHeader }: Pr
                     <textarea className={INPUT + ' resize-none'} rows={2} value={editForm.description} onChange={e => setEditForm(f => ({ ...f, description: e.target.value }))} />
                   </div>
                   <div>
+                    <label className={LABEL}>Category</label>
+                    <select
+                      className={INPUT}
+                      value={editForm.category_id}
+                      onChange={e => setEditForm(f => ({ ...f, category_id: e.target.value }))}
+                      required
+                      disabled={categoriesLoading}
+                    >
+                      <option value="">{categoriesLoading ? 'Loading…' : 'Select a category…'}</option>
+                      {categories.map(c => (
+                        <option key={c.id} value={c.id}>{c.name}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div>
                     <label className={LABEL}>Price</label>
                     <input className={INPUT} type="number" step="0.01" min="0" value={editForm.price} onChange={e => setEditForm(f => ({ ...f, price: e.target.value }))} placeholder="Optional" />
                   </div>
@@ -193,6 +240,12 @@ export default function ServiceManager({ slug, initialServices, authHeader }: Pr
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex-1 min-w-0">
                     <p className="font-medium text-[#1a1a1a] leading-snug">{service.name}</p>
+                    {(() => {
+                      const cat = categories.find(c => c.id === service.category_id);
+                      return cat ? (
+                        <span className="text-xs font-medium text-[#3a6e3f]">{cat.name}</span>
+                      ) : null;
+                    })()}
                     {service.description && (
                       <p className="text-sm text-[#666] mt-0.5 line-clamp-2">{service.description}</p>
                     )}
