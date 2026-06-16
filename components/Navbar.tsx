@@ -92,7 +92,7 @@ export default function Navbar() {
             alt="Check Local First"
             height={44}
             width={150}
-            style={{ width: 'auto', height: '44px' }}
+            className="h-11 w-auto"
             priority
           />
         </Link>
