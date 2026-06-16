@@ -213,11 +213,3 @@ The platform uses 8 fixed service categories (defined in `lib/constants.ts`):
 
 ---
 
-## Planned / In-Progress Features
-
-These are **not yet implemented** — don't be surprised if you see stubs or TODOs:
-
-- **Premium tier** — Stripe billing, deals/promotions, analytics dashboard, newsletter access. See [PREMIUM.md](./PREMIUM.md) for the full spec.
-- **`UserDashboard`** — The regular-user dashboard is a stub; features are TBD.
-- **`/businesses/[slug]`** — Business detail page skeleton exists but may need content fleshed out.
-- **Business photos** — Currently served from `/public/imgs/` and looked up via `findPhoto(slug)` in `lib/server-utils.ts`. Will eventually move to cloud storage.
