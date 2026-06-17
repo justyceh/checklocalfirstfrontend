@@ -473,6 +473,71 @@ Updates the currently logged-in user's profile.
 
 ---
 
+## Favorites
+
+All favorites routes require authentication. Include the auth token in every request:
+`Authorization: Bearer <token>`
+
+---
+
+### Get User Favorites
+`GET /favorites`
+
+Returns all favorites for the logged in user, with full business data joined.
+
+**Response 200:**
+```json
+{
+  "data": [
+    {
+      "id": "uuid",
+      "user_id": "uuid",
+      "business_id": 1,
+      "created_at": "timestamp",
+      "businesses": {
+        "id": 1,
+        "name": "Business Name",
+        "slug": "business-slug",
+        ...
+      }
+    }
+  ]
+}
+```
+
+---
+
+### Add Favorite
+`POST /favorites`
+
+**Request body:**
+```json
+{
+  "business_id": 1
+}
+```
+
+**Response 201:**
+```json
+{
+  "message": "Added to favorites"
+}
+```
+
+---
+
+### Remove Favorite
+`DELETE /favorites/:business_id`
+
+**URL param:** `business_id` — the ID of the business to unfavorite.
+
+**Response 200:**
+```json
+{
+  "message": "Removed from favorites"
+}
+```
+
 ## Frontend Conventions
 
 - Framework: Next.js (App Router)

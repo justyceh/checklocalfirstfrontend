@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter, usePathname } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { getAuth, clearAuth, getAuthHeaders } from '@/lib/auth';
 import { API_BASE_URL } from '@/lib/constants';
 
@@ -28,7 +28,6 @@ export default function Navbar() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const desktopDropdownRef = useRef<HTMLLIElement>(null);
   const mobileDropdownRef = useRef<HTMLDivElement>(null);
-  const router = useRouter();
   const pathname = usePathname();
 
   useEffect(() => {
@@ -57,11 +56,7 @@ export default function Navbar() {
       await fetch(`${API_BASE_URL}auth/logout`, { method: 'POST', headers: getAuthHeaders() });
     } finally {
       clearAuth();
-      setIsLoggedIn(false);
-      setAccountType(null);
-      setDropdownOpen(false);
-      setOpen(false);
-      router.push('/');
+      window.location.href = '/';
     }
   }
 

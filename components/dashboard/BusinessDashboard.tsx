@@ -84,7 +84,7 @@ export default function BusinessDashboard({ auth }: { auth: AuthState }) {
       await fetch(`${API_BASE_URL}auth/logout`, { method: 'POST', headers: getAuthHeaders() });
     } finally {
       clearAuth();
-      router.push('/');
+      window.location.href = '/';
     }
   }
 

@@ -1,6 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { API_BASE_URL } from '@/lib/constants';
 import { getAuthHeaders, clearAuth, type AuthState } from '@/lib/auth';
 
@@ -15,8 +15,19 @@ type UserProfile = {
   phone: string;
 };
 
+type FavoriteItem = {
+  id: string;
+  business_id: string;
+  businesses: {
+    id: string;
+    name: string;
+    slug: string;
+    city?: string | null;
+    state?: string | null;
+  };
+};
+
 export default function UserDashboard({ auth }: { auth: AuthState }) {
-  const router = useRouter();
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [editing, setEditing] = useState(false);
   const [form, setForm] = useState({ first_name: '', last_name: '', email: '', phone: '' });
@@ -24,6 +35,8 @@ export default function UserDashboard({ auth }: { auth: AuthState }) {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [loggingOut, setLoggingOut] = useState(false);
+  const [favorites, setFavorites] = useState<FavoriteItem[]>([]);
+  const [favLoading, setFavLoading] = useState(true);
 
   useEffect(() => {
     fetch(`${API_BASE_URL}users/me`, { headers: getAuthHeaders() })
@@ -35,6 +48,30 @@ export default function UserDashboard({ auth }: { auth: AuthState }) {
       })
       .catch(() => {});
   }, []);
+
+  useEffect(() => {
+    fetch(`${API_BASE_URL}favorites`, { headers: getAuthHeaders() })
+      .then(r => r.ok ? r.json() : { data: [] })
+      .then(body => setFavorites(body.data ?? []))
+      .catch(() => {})
+      .finally(() => setFavLoading(false));
+  }, []);
+
+  async function removeFavorite(businessId: string) {
+    setFavorites(prev => prev.filter(f => String(f.business_id) !== String(businessId)));
+    try {
+      const res = await fetch(`${API_BASE_URL}favorites/${businessId}`, {
+        method: 'DELETE',
+        headers: getAuthHeaders(),
+      });
+      if (!res.ok) throw new Error();
+    } catch {
+      fetch(`${API_BASE_URL}favorites`, { headers: getAuthHeaders() })
+        .then(r => r.ok ? r.json() : { data: [] })
+        .then(body => setFavorites(body.data ?? []))
+        .catch(() => {});
+    }
+  }
 
   async function handleSave(e: React.FormEvent) {
     e.preventDefault();
@@ -69,7 +106,7 @@ export default function UserDashboard({ auth }: { auth: AuthState }) {
       await fetch(`${API_BASE_URL}auth/logout`, { method: 'POST', headers: getAuthHeaders() });
     } finally {
       clearAuth();
-      router.push('/');
+      window.location.href = '/';
     }
   }
 
@@ -175,6 +212,64 @@ export default function UserDashboard({ auth }: { auth: AuthState }) {
             <div className="flex h-20 items-center justify-center">
               <div className="h-5 w-5 animate-spin rounded-full border-2 border-[#3a6e3f] border-t-transparent" />
             </div>
+          )}
+        </section>
+
+        {/* Saved Businesses card */}
+        <section className="rounded-2xl border border-black/10 bg-white p-6 shadow-sm mb-4">
+          <h2 className="font-semibold text-[#1a1a1a] mb-4">Saved Businesses</h2>
+
+          {favLoading ? (
+            <div className="flex h-16 items-center justify-center">
+              <div className="h-5 w-5 animate-spin rounded-full border-2 border-[#3a6e3f] border-t-transparent" />
+            </div>
+          ) : favorites.length === 0 ? (
+            <p className="text-sm text-[#888]">
+              No saved businesses yet. Browse{' '}
+              <Link href="/businesses" className="text-[#3a6e3f] hover:underline">
+                local businesses
+              </Link>
+              {' '}and tap the heart to save your favorites.
+            </p>
+          ) : (
+            <ul className="flex flex-col divide-y divide-black/8">
+              {favorites.map(fav => (
+                <li key={fav.id} className="flex items-center justify-between gap-3 py-3 first:pt-0 last:pb-0">
+                  <div className="min-w-0">
+                    <Link
+                      href={`/businesses/${fav.businesses.slug}`}
+                      className="text-sm font-medium text-[#1a1a1a] hover:text-[#3a6e3f] transition-colors truncate block"
+                    >
+                      {fav.businesses.name}
+                    </Link>
+                    {(fav.businesses.city || fav.businesses.state) && (
+                      <p className="text-xs text-[#888] mt-0.5">
+                        {[fav.businesses.city, fav.businesses.state].filter(Boolean).join(', ')}
+                      </p>
+                    )}
+                  </div>
+                  <button
+                    onClick={() => removeFavorite(String(fav.business_id))}
+                    aria-label={`Remove ${fav.businesses.name} from favorites`}
+                    className="cursor-pointer shrink-0 flex items-center justify-center w-8 h-8 rounded-full hover:bg-[#7ec9a4]/15 transition-colors"
+                  >
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="#7ec9a4"
+                      stroke="#7ec9a4"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                    </svg>
+                  </button>
+                </li>
+              ))}
+            </ul>
           )}
         </section>
 

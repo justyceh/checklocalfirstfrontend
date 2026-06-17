@@ -5,6 +5,7 @@ import { API_BASE_URL } from '@/lib/constants';
 import type { Business, BusinessService } from '@/lib/types';
 import { findPhoto } from '@/lib/server-utils';
 import ServiceCard from '@/components/ServiceCard';
+import FavoriteButton from '@/components/FavoriteButton';
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -107,15 +108,18 @@ export default async function BusinessDetailPage({ params }: Props) {
       {/* Content */}
       <div className="mx-auto max-w-5xl px-5 py-8 pb-16">
         {/* Back link */}
-        <Link
-          href="/businesses"
-          className="inline-flex items-center gap-1.5 text-sm text-[#666] hover:text-[#1a1a1a] transition-colors mb-8"
-        >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <polyline points="15 18 9 12 15 6" />
-          </svg>
-          All Businesses
-        </Link>
+        <div className="flex items-center justify-between mb-8">
+          <Link
+            href="/businesses"
+            className="inline-flex items-center gap-1.5 text-sm text-[#666] hover:text-[#1a1a1a] transition-colors"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
+            All Businesses
+          </Link>
+          <FavoriteButton businessId={business.id} />
+        </div>
 
         {/* CTAs */}
         {(business.phone || business.email) && (

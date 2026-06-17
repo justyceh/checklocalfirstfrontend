@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import type { Business } from '@/lib/types';
+import FavoriteButton from '@/components/FavoriteButton';
 
 type Props = {
   business: Business;
@@ -9,10 +10,7 @@ type Props = {
 
 export default function BusinessCard({ business, photoSrc }: Props) {
   return (
-    <Link
-      href={`/businesses/${business.slug}`}
-      className="flex flex-col rounded-xl border border-black/10 bg-white shadow-sm transition-shadow hover:shadow-md overflow-hidden"
-    >
+    <div className="relative flex flex-col rounded-xl border border-black/10 bg-white shadow-sm transition-shadow hover:shadow-md overflow-hidden">
       {photoSrc && (
         <div className="relative w-full aspect-4/3">
           <Image
@@ -27,19 +25,26 @@ export default function BusinessCard({ business, photoSrc }: Props) {
 
       <div className="flex flex-col gap-3 p-5">
         <div className="flex items-start justify-between gap-3">
-          <h2 className="text-lg font-semibold text-[#1a1a1a] leading-snug">{business.name}</h2>
+          <h2 className="text-lg font-semibold text-[#1a1a1a] leading-snug">
+            <Link
+              href={`/businesses/${business.slug}`}
+              className="after:absolute after:inset-0 after:content-['']"
+            >
+              {business.name}
+            </Link>
+          </h2>
           {(business.city || business.state) && (
-            <span className="shrink-0 rounded-full bg-[#3a6e3f]/10 px-3 py-1 text-xs font-medium text-[#3a6e3f]">
+            <span className="relative z-10 shrink-0 rounded-full bg-[#3a6e3f]/10 px-3 py-1 text-xs font-medium text-[#3a6e3f]">
               {[business.city, business.state].filter(Boolean).join(', ')}
             </span>
           )}
         </div>
 
         {business.description && (
-          <p className="text-sm text-[#555] leading-relaxed line-clamp-2">{business.description}</p>
+          <p className="relative z-10 text-sm text-[#555] leading-relaxed line-clamp-2">{business.description}</p>
         )}
 
-        <div className="mt-auto flex flex-col gap-1 pt-1 text-sm text-[#666]">
+        <div className="relative z-10 mt-auto flex flex-col gap-1 pt-1 text-sm text-[#666]">
           {business.address && (
             <span className="flex items-center gap-2">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -68,6 +73,8 @@ export default function BusinessCard({ business, photoSrc }: Props) {
           )}
         </div>
       </div>
-    </Link>
+
+      <FavoriteButton businessId={business.id} className="absolute top-3 right-3 z-10" />
+    </div>
   );
 }

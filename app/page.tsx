@@ -5,6 +5,7 @@ import InstructionsSection from '@/components/InstructionsSection';
 import FeaturedSection from '@/components/FeaturedSection';
 import StatSection from '@/components/StatSection';
 import FadeIn from '@/components/FadeIn';
+import HeroSection2 from '@/components/HeroSection2';
 
 export const metadata: Metadata = {
   title: 'Check Local First – Shop Local in Reno, NV',
