@@ -5,6 +5,7 @@ import InstructionsSection from '@/components/InstructionsSection';
 import FeaturedSection from '@/components/FeaturedSection';
 import StatSection from '@/components/StatSection';
 import FadeIn from '@/components/FadeIn';
+import BusinessCta from '@/components/BusinessCta';
 import HeroSection7 from '@/components/HeroSection7';
 import HeroSection8 from '@/components/HeroSection8';
 import HeroSection2 from '@/components/HeroSection2';
@@ -30,17 +31,15 @@ export default function Home() {
     <>
       <HeroSection8 />
       <FadeIn>
-      <TrustSection />
-      </FadeIn>
-      <FadeIn>
       <FeaturedSection/>
       </FadeIn>
       <FadeIn>
-      <InstructionsSection />
+      <TrustSection/>
       </FadeIn>
       <FadeIn>
       <StatSection />
       </FadeIn>
+      <BusinessCta />
     </>
   );
 }

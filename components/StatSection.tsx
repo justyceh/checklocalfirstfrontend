@@ -5,7 +5,7 @@ import Image from 'next/image';
 const CONTENT = {
   heading: 'Check local first is growing',
   image: {
-    src: '/imgs/farmers1.jpg',
+    src: '/imgs/businessowners.jpg',
     alt: 'Local Reno community',
   },
 };

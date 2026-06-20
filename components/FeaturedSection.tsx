@@ -33,7 +33,7 @@ export default async function FeaturedSection() {
               Reno, NV
             </p>
             <h2 className="text-3xl font-bold tracking-tight text-[#1a1a1a]">
-              Featured Businesses
+              Meet Your Neighbors
             </h2>
           </div>
           <Link
