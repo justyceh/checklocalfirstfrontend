@@ -10,17 +10,17 @@ export default function ServiceResultCard({ service }: { service: ServiceResult 
       className="flex flex-col gap-2 rounded-xl border border-black/10 bg-white p-5 shadow-sm transition-shadow hover:shadow-md"
     >
       <div className="flex items-start justify-between gap-3">
-        <h2 className="text-lg font-semibold text-[#1a1a1a] leading-snug">{biz.name}</h2>
-        <span className="shrink-0 rounded-full bg-[#3a6e3f]/10 px-3 py-1 text-xs font-medium text-[#3a6e3f]">
+        <h2 className="text-lg font-semibold text-dark leading-snug">{biz.name}</h2>
+        <span className="shrink-0 rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
           {service.name}
         </span>
       </div>
 
       {service.description && (
-        <p className="text-sm text-[#555] leading-relaxed line-clamp-2">{service.description}</p>
+        <p className="text-sm text-body leading-relaxed line-clamp-2">{service.description}</p>
       )}
 
-      <div className="mt-auto flex flex-col gap-1 pt-2 text-sm text-[#666]">
+      <div className="mt-auto flex flex-col gap-1 pt-2 text-sm text-subtle">
         {biz.address && (
           <span className="flex items-center gap-2">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">

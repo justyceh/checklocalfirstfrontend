@@ -44,12 +44,12 @@ export default async function BusinessesPage() {
   });
 
   return (
-    <main className="min-h-screen bg-[#f7f7f5] pt-20 pb-16 px-5">
+    <main className="min-h-screen bg-surface pt-20 pb-16 px-5">
       <div className="mx-auto max-w-5xl">
         <div className="mb-8 pt-8">
-          <h1 className="text-3xl font-bold tracking-tight text-[#1a1a1a]">Local Businesses</h1>
+          <h1 className="text-3xl font-bold tracking-tight text-dark">Local Businesses</h1>
           {!errorMessage && (
-            <p className="mt-1 text-sm text-[#888]">
+            <p className="mt-1 text-sm text-muted">
               {businesses.length === 0
                 ? 'No businesses listed yet'
                 : `${businesses.length} business${businesses.length === 1 ? '' : 'es'} registered`}
@@ -63,8 +63,8 @@ export default async function BusinessesPage() {
           </div>
         ) : businesses.length === 0 ? (
           <div className="rounded-xl border border-black/10 bg-white p-12 text-center">
-            <p className="text-lg font-medium text-[#333]">No businesses yet</p>
-            <p className="mt-2 text-sm text-[#888]">
+            <p className="text-lg font-medium text-label">No businesses yet</p>
+            <p className="mt-2 text-sm text-muted">
               Be the first to register your local business.
             </p>
           </div>

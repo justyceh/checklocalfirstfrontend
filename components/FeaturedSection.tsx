@@ -24,21 +24,21 @@ export default async function FeaturedSection() {
   if (featured.length === 0) return null;
 
   return (
-    <section className="bg-[#f7f7f5] px-5 py-16 sm:py-24">
+    <section className="bg-surface px-5 py-16 sm:py-24">
       <div className="mx-auto max-w-5xl">
 
         <div className="mb-10 flex items-end justify-between">
           <div>
-            <p className="mb-1 text-xs font-semibold uppercase tracking-widest text-[#3a6e3f]">
+            <p className="mb-1 text-xs font-semibold uppercase tracking-widest text-primary">
               Reno, NV
             </p>
-            <h2 className="text-3xl font-bold tracking-tight text-[#1a1a1a]">
+            <h2 className="text-3xl font-bold tracking-tight text-dark">
               Meet Your Neighbors
             </h2>
           </div>
           <Link
             href="/businesses"
-            className="hidden text-sm font-medium text-[#3a6e3f] hover:underline sm:block"
+            className="hidden text-sm font-medium text-primary hover:underline sm:block"
           >
             View all →
           </Link>
@@ -57,7 +57,7 @@ export default async function FeaturedSection() {
         <div className="mt-8 text-center sm:hidden">
           <Link
             href="/businesses"
-            className="inline-flex items-center gap-2 rounded-lg border border-black/15 px-5 py-2.5 text-sm font-medium text-[#555] transition-colors hover:bg-black/5"
+            className="inline-flex items-center gap-2 rounded-lg border border-black/15 px-5 py-2.5 text-sm font-medium text-body transition-colors hover:bg-black/5"
           >
             View all businesses →
           </Link>

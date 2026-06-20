@@ -15,13 +15,13 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <main className="min-h-screen bg-[#f7f7f5] flex items-center justify-center px-5 pt-20 pb-16">
+    <main className="min-h-screen bg-surface flex items-center justify-center px-5 pt-20 pb-16">
       <div className="mx-auto w-full max-w-md text-center">
-        <p className="text-sm font-semibold uppercase tracking-widest text-[#3a6e3f] mb-4">404</p>
-        <h1 className="text-3xl font-bold tracking-tight text-[#1a1a1a] mb-3">
+        <p className="text-sm font-semibold uppercase tracking-widest text-primary mb-4">404</p>
+        <h1 className="text-3xl font-bold tracking-tight text-dark mb-3">
           Page not found
         </h1>
-        <p className="text-[#666] mb-8">
+        <p className="text-subtle mb-8">
           This page doesn&apos;t exist or may have moved. Try searching for what you need.
         </p>
 
@@ -32,13 +32,13 @@ export default function NotFound() {
         <div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
           <Link
             href="/businesses"
-            className="flex-1 sm:flex-none inline-flex items-center justify-center rounded-lg bg-[#3a6e3f] px-6 py-3 text-sm font-semibold text-white hover:bg-[#2a4d2f] transition-colors"
+            className="flex-1 sm:flex-none inline-flex items-center justify-center rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-white hover:bg-primary-dark transition-colors"
           >
             Browse Businesses
           </Link>
           <Link
             href="/"
-            className="flex-1 sm:flex-none inline-flex items-center justify-center rounded-lg border border-black/15 px-6 py-3 text-sm font-medium text-[#555] hover:bg-black/5 transition-colors"
+            className="flex-1 sm:flex-none inline-flex items-center justify-center rounded-lg border border-black/15 px-6 py-3 text-sm font-medium text-body hover:bg-black/5 transition-colors"
           >
             Go Home
           </Link>

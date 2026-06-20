@@ -121,7 +121,7 @@ function Icon({ name }: { name: string }): ReactNode {
 
 function DownArrow() {
   return (
-    <div className="my-5 text-[#3a6e3f]/40">
+    <div className="my-5 text-primary/40">
       <svg width="16" height="28" viewBox="0 0 16 28" fill="none" aria-hidden="true">
         <line x1="8" y1="0" x2="8" y2="20" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
         <polyline
@@ -144,12 +144,12 @@ type Step = { label: string; title: string; description: string; icon: string };
 function StepNode({ step, isLast }: { step: Step; isLast: boolean }) {
   return (
     <div className="flex flex-col items-center">
-      <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#3a6e3f] text-white shadow-sm">
+      <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary text-white shadow-sm">
         <Icon name={step.icon} />
       </div>
       <div className="mt-4 max-w-[200px] text-center">
-        <p className="text-sm font-semibold text-[#1a1a1a]">{step.title}</p>
-        <p className="mt-1 text-xs leading-relaxed text-[#666]">{step.description}</p>
+        <p className="text-sm font-semibold text-dark">{step.title}</p>
+        <p className="mt-1 text-xs leading-relaxed text-subtle">{step.description}</p>
       </div>
       {!isLast && <DownArrow />}
     </div>
@@ -165,8 +165,8 @@ export default function InstructionsSection() {
 
         {/* Header */}
         <div className="mb-14 text-center lg:mb-20">
-          <h2 className="text-3xl font-bold tracking-tight text-[#1a1a1a]">How It Works</h2>
-          <p className="mt-3 text-[#666]">
+          <h2 className="text-3xl font-bold tracking-tight text-dark">How It Works</h2>
+          <p className="mt-3 text-subtle">
             Whether you&apos;re a local shopper or a Reno business, we make it simple.
           </p>
         </div>
@@ -176,8 +176,8 @@ export default function InstructionsSection() {
 
           {/* For Local Shoppers */}
           <div className="flex flex-col items-center">
-            <p className="mb-1 text-xs font-semibold uppercase tracking-widest text-[#3a6e3f]">For Local Shoppers</p>
-            <h3 className="mb-10 text-base font-bold text-[#1a1a1a]">Find what you need, locally</h3>
+            <p className="mb-1 text-xs font-semibold uppercase tracking-widest text-primary">For Local Shoppers</p>
+            <h3 className="mb-10 text-base font-bold text-dark">Find what you need, locally</h3>
             <div className="flex flex-col items-center">
               {USER_STEPS.map((step, i) => (
                 <StepNode key={step.label} step={step} isLast={i === USER_STEPS.length - 1} />
@@ -186,7 +186,7 @@ export default function InstructionsSection() {
             <div className="mt-10">
               <Link
                 href="/search"
-                className="inline-flex items-center gap-2 rounded-lg border border-black/15 px-5 py-2.5 text-sm font-medium text-[#555] transition-colors hover:bg-black/5"
+                className="inline-flex items-center gap-2 rounded-lg border border-black/15 px-5 py-2.5 text-sm font-medium text-body transition-colors hover:bg-black/5"
               >
                 Start searching →
               </Link>
@@ -195,8 +195,8 @@ export default function InstructionsSection() {
 
           {/* For Businesses */}
           <div className="flex flex-col items-center">
-            <p className="mb-1 text-xs font-semibold uppercase tracking-widest text-[#3a6e3f]">For Businesses</p>
-            <h3 className="mb-10 text-base font-bold text-[#1a1a1a]">Get your business in front of locals</h3>
+            <p className="mb-1 text-xs font-semibold uppercase tracking-widest text-primary">For Businesses</p>
+            <h3 className="mb-10 text-base font-bold text-dark">Get your business in front of locals</h3>
             <div className="flex flex-col items-center">
               {BUSINESS_STEPS.map((step, i) => (
                 <StepNode key={step.label} step={step} isLast={i === BUSINESS_STEPS.length - 1} />
@@ -205,7 +205,7 @@ export default function InstructionsSection() {
             <div className="mt-10">
               <Link
                 href="/signup"
-                className="inline-flex items-center gap-2 rounded-lg bg-[#3a6e3f] px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#2a4d2f]"
+                className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
               >
                 List your business →
               </Link>

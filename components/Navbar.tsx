@@ -64,14 +64,14 @@ export default function Navbar() {
     <div className="absolute right-0 top-full mt-2 w-44 rounded-xl border border-black/10 bg-white shadow-lg py-1 z-50">
       <Link
         href="/dashboard"
-        className="block px-4 py-2.5 text-sm font-medium text-[#1a1a1a] hover:bg-black/5 transition-colors"
+        className="block px-4 py-2.5 text-sm font-medium text-dark hover:bg-black/5 transition-colors"
         onClick={() => setDropdownOpen(false)}
       >
         My Account
       </Link>
       <button
         onClick={handleLogout}
-        className="block w-full text-left px-4 py-2.5 text-sm font-medium text-[#1a1a1a] hover:bg-black/5 transition-colors cursor-pointer"
+        className="block w-full text-left px-4 py-2.5 text-sm font-medium text-dark hover:bg-black/5 transition-colors cursor-pointer"
       >
         Log Out
       </button>
@@ -96,7 +96,7 @@ export default function Navbar() {
         <ul className="hidden items-center gap-8 md:flex">
           {NAV_LINKS.map(({ label, href }) => (
             <li key={href}>
-              <Link href={href} className="relative font-medium text-black transition-colors hover:text-black/60 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-[#3a6e3f] after:content-[''] after:transition-[width] after:duration-300 after:ease-out hover:after:w-full">
+              <Link href={href} className="relative font-medium text-black transition-colors hover:text-black/60 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-primary after:content-[''] after:transition-[width] after:duration-300 after:ease-out hover:after:w-full">
                 {label}
               </Link>
             </li>
@@ -117,7 +117,7 @@ export default function Navbar() {
             <li>
               <Link
                 href="/login"
-                className="rounded-lg bg-[#3a6e3f] px-4 py-2 text-sm font-semibold text-white hover:bg-[#2a4d2f] transition-colors"
+                className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-primary-dark transition-colors"
               >
                 Log In
               </Link>

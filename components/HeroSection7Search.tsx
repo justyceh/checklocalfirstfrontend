@@ -17,7 +17,7 @@ export default function HeroSection7Search() {
   return (
     <div className="flex items-center gap-2.5 rounded-full border border-white/20 bg-white px-5 py-2 shadow-[0_8px_40px_rgba(0,0,0,0.3)]">
       <svg
-        className="shrink-0 text-[#888]"
+        className="shrink-0 text-muted"
         width="20"
         height="20"
         viewBox="0 0 24 24"
@@ -33,7 +33,7 @@ export default function HeroSection7Search() {
       </svg>
       <input
         type="search"
-        className="min-w-0 flex-1 border-0 bg-transparent py-2 text-base text-[#374151] outline-none placeholder:text-[#aaa]"
+        className="min-w-0 flex-1 border-0 bg-transparent py-2 text-base text-input outline-none placeholder:text-faint"
         placeholder="Search vintage, plants, food..."
         value={query}
         onChange={e => setQuery(e.target.value)}
@@ -41,7 +41,7 @@ export default function HeroSection7Search() {
       />
       <button
         onClick={handleSearch}
-        className="shrink-0 cursor-pointer whitespace-nowrap rounded-full bg-[#3a6e3f] px-5 py-2 text-sm font-semibold text-white transition-colors duration-150 hover:bg-[#2a4d2f]"
+        className="shrink-0 cursor-pointer whitespace-nowrap rounded-full bg-primary px-5 py-2 text-sm font-semibold text-white transition-colors duration-150 hover:bg-primary-dark"
       >
         Search
       </button>

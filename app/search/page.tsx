@@ -60,24 +60,24 @@ export default async function SearchPage({
   const categoryLabel = CATEGORIES.find(c => c.slug === cat)?.name;
 
   return (
-    <main className="min-h-screen bg-[#f7f7f5] pt-20 pb-16 px-5">
+    <main className="min-h-screen bg-surface pt-20 pb-16 px-5">
       <div className="mx-auto max-w-5xl">
         <SearchBar defaultQuery={query} defaultCategory={cat} />
 
         <div className="mb-8">
-          <h1 className="text-2xl font-bold text-[#1a1a1a] tracking-tight">
+          <h1 className="text-2xl font-bold text-dark tracking-tight">
             {isDefault
               ? 'All services'
               : query
-                ? <>Results for <span className="text-[#3a6e3f]">&ldquo;{query}&rdquo;</span></>
-                : <>Browsing <span className="text-[#3a6e3f]">{categoryLabel ?? cat}</span></>
+                ? <>Results for <span className="text-primary">&ldquo;{query}&rdquo;</span></>
+                : <>Browsing <span className="text-primary">{categoryLabel ?? cat}</span></>
             }
           </h1>
           {categoryLabel && query && (
-            <p className="mt-1 text-sm text-[#666]">in {categoryLabel}</p>
+            <p className="mt-1 text-sm text-subtle">in {categoryLabel}</p>
           )}
           {!errorMessage && (
-            <p className="mt-1 text-sm text-[#888]">
+            <p className="mt-1 text-sm text-muted">
               {results.length === 0
                 ? 'No results found'
                 : `${results.length} result${results.length === 1 ? '' : 's'}`}
@@ -91,8 +91,8 @@ export default async function SearchPage({
           </div>
         ) : results.length === 0 ? (
           <div className="rounded-xl border border-black/10 bg-white p-12 text-center">
-            <p className="text-lg font-medium text-[#333]">No local businesses found</p>
-            <p className="mt-2 text-sm text-[#888]">
+            <p className="text-lg font-medium text-label">No local businesses found</p>
+            <p className="mt-2 text-sm text-muted">
               Try a different search term or browse a category above.
             </p>
           </div>

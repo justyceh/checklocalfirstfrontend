@@ -38,21 +38,21 @@ export default function HeroSection8() {
       <div className="flex flex-col justify-center px-6 py-12 md:order-1 md:w-[55%] md:px-16 lg:px-24">
 
         {/* Headline */}
-        <h1 className="font-[family-name:var(--font-playfair)] text-[clamp(2.2rem,5vw,3.75rem)] font-bold leading-[1.1] tracking-[-0.01em] text-[#1a1a1a]">
+        <h1 className="font-[family-name:var(--font-playfair)] text-[clamp(2.2rem,5vw,3.75rem)] font-bold leading-[1.1] tracking-[-0.01em] text-dark">
           <span className="block whitespace-nowrap">Support Your</span>
           <span className="block whitespace-nowrap">Neighbors.</span>
-          <span className="block whitespace-nowrap text-[#3a6e3f]">Check Local First.</span>
+          <span className="block whitespace-nowrap text-primary">Check Local First.</span>
         </h1>
 
         {/* Subheadline */}
-        <p className="mt-5 max-w-sm text-lg leading-relaxed text-[#555]">
+        <p className="mt-5 max-w-sm text-lg leading-relaxed text-body">
           Vote with your dollars, support local businesses.
         </p>
 
         {/* Search bar */}
-        <div className="mt-10 flex max-w-md items-center gap-3 rounded-2xl border border-[#e5e5e5] bg-white px-5 py-3 shadow-[0_4px_30px_rgba(0,0,0,0.09)]">
+        <div className="mt-10 flex max-w-md items-center gap-3 rounded-2xl border border-black/10 bg-white px-5 py-3 shadow-[0_4px_30px_rgba(0,0,0,0.09)]">
           <svg
-            className="shrink-0 text-[#aaa]"
+            className="shrink-0 text-faint"
             width="20"
             height="20"
             viewBox="0 0 24 24"
@@ -68,7 +68,7 @@ export default function HeroSection8() {
           </svg>
           <input
             type="search"
-            className="min-w-0 flex-1 border-0 bg-transparent py-1.5 text-base text-[#374151] outline-none placeholder:text-[#bbb]"
+            className="min-w-0 flex-1 border-0 bg-transparent py-1.5 text-base text-input outline-none placeholder:text-faint"
             placeholder="Find local..."
             value={query}
             onChange={e => setQuery(e.target.value)}
@@ -76,14 +76,14 @@ export default function HeroSection8() {
           />
           <button
             onClick={handleSearch}
-            className="shrink-0 cursor-pointer whitespace-nowrap rounded-xl bg-[#3a6e3f] px-5 py-2.5 text-sm font-semibold text-white transition-colors duration-150 hover:bg-[#2a4d2f]"
+            className="shrink-0 cursor-pointer whitespace-nowrap rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-white transition-colors duration-150 hover:bg-primary-dark"
           >
             Search
           </button>
         </div>
 
         {/* Trust line */}
-        <p className="mt-6 text-sm text-[#bbb]">
+        <p className="mt-6 text-sm text-faint">
           Every dollar spent local stays local.
         </p>
 

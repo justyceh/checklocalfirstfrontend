@@ -62,7 +62,7 @@ export default async function BusinessDetailPage({ params }: Props) {
     : null;
 
   return (
-    <main className="min-h-screen bg-[#f7f7f5]">
+    <main className="min-h-screen bg-surface">
       {/* Hero */}
       <div className="pt-17.5">
         {photoSrc ? (
@@ -111,7 +111,7 @@ export default async function BusinessDetailPage({ params }: Props) {
         <div className="flex items-center justify-between mb-8">
           <Link
             href="/businesses"
-            className="inline-flex items-center gap-1.5 text-sm text-[#666] hover:text-[#1a1a1a] transition-colors"
+            className="inline-flex items-center gap-1.5 text-sm text-subtle hover:text-dark transition-colors"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <polyline points="15 18 9 12 15 6" />
@@ -127,7 +127,7 @@ export default async function BusinessDetailPage({ params }: Props) {
             {business.phone && (
               <a
                 href={`tel:${business.phone}`}
-                className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-[#3a6e3f] px-6 py-4 text-white font-semibold text-base hover:bg-[#2a4d2f] transition-colors"
+                className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-primary px-6 py-4 text-white font-semibold text-base hover:bg-primary-dark transition-colors"
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.64 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.55 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.76a16 16 0 0 0 6 6l.87-.87a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.02z" />
@@ -138,7 +138,7 @@ export default async function BusinessDetailPage({ params }: Props) {
             {business.email && (
               <a
                 href={`mailto:${business.email}`}
-                className="flex flex-1 items-center justify-center gap-2 rounded-xl border-2 border-[#3a6e3f] px-6 py-4 text-[#3a6e3f] font-semibold text-base hover:bg-[#3a6e3f]/10 transition-colors"
+                className="flex flex-1 items-center justify-center gap-2 rounded-xl border-2 border-primary px-6 py-4 text-primary font-semibold text-base hover:bg-primary/10 transition-colors"
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
@@ -154,19 +154,19 @@ export default async function BusinessDetailPage({ params }: Props) {
         <div className="mb-10">
           {business.description && (
             <>
-              <h2 className="text-xl font-bold text-[#1a1a1a] mb-3">About</h2>
-              <p className="text-[#444] leading-relaxed mb-5">{business.description}</p>
+              <h2 className="text-xl font-bold text-dark mb-3">About</h2>
+              <p className="text-content leading-relaxed mb-5">{business.description}</p>
             </>
           )}
 
           {(mapsUrl || business.phone) && (
-            <div className="flex flex-col gap-2 text-sm text-[#666]">
+            <div className="flex flex-col gap-2 text-sm text-subtle">
               {mapsUrl && (
                 <a
                   href={mapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-[#3a6e3f] hover:underline"
+                  className="inline-flex items-center gap-2 text-primary hover:underline"
                 >
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
@@ -190,8 +190,8 @@ export default async function BusinessDetailPage({ params }: Props) {
         {/* Services */}
         <div>
           <div className="mb-5">
-            <h2 className="text-xl font-bold text-[#1a1a1a]">What We Offer</h2>
-            <p className="mt-1 text-sm text-[#888]">
+            <h2 className="text-xl font-bold text-dark">What We Offer</h2>
+            <p className="mt-1 text-sm text-muted">
               {services.length === 0
                 ? 'No services listed yet'
                 : `${services.length} service${services.length === 1 ? '' : 's'} available`}
@@ -200,7 +200,7 @@ export default async function BusinessDetailPage({ params }: Props) {
 
           {services.length === 0 ? (
             <div className="rounded-xl border border-black/10 bg-white p-10 text-center">
-              <p className="text-[#555]">No services listed yet.</p>
+              <p className="text-body">No services listed yet.</p>
             </div>
           ) : (
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

@@ -30,6 +30,13 @@ export const metadata: Metadata = {
     description: 'A community-first local business directory for Reno, Nevada. Discover and support real Reno locals.',
     type: 'website',
     siteName: 'Check Local First',
+    images: [{ url: '/imgs/og-image.jpg', width: 1200, height: 630, alt: 'Check Local First' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Check Local First',
+    description: 'A community-first local business directory for Reno, Nevada. Discover and support real Reno locals.',
+    images: ['/imgs/og-image.jpg'],
   },
 };
 

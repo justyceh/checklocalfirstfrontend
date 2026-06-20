@@ -1,7 +1,72 @@
 @import "tailwindcss";
+
+@theme {
+  --color-primary: #3a6e3f;
+  --color-primary-dark: #2a4d2f;
+  --color-surface: #f7f7f5;
+  --color-dark: #1a1a1a;
+  --color-body: #555555;
+  --color-subtle: #666666;
+  --color-muted: #888888;
+  --color-faint: #aaaaaa;
+  --color-input: #374151;
+  --color-label: #333333;
+  --color-content: #444444;
+  --color-accent: #7ec9a4;
+}
+
 input[type="search"]::-webkit-search-cancel-button { display: none; }
 
+@layer utilities {
+  /* ── Text ── */
+  .text-primary       { color: var(--color-primary); }
+  .text-primary-dark  { color: var(--color-primary-dark); }
+  .text-dark          { color: var(--color-dark); }
+  .text-body          { color: var(--color-body); }
+  .text-subtle        { color: var(--color-subtle); }
+  .text-muted         { color: var(--color-muted); }
+  .text-faint         { color: var(--color-faint); }
+  .text-input         { color: var(--color-input); }
+  .text-label         { color: var(--color-label); }
+  .text-content       { color: var(--color-content); }
+  .text-accent        { color: var(--color-accent); }
 
-.borderbox{
-    border: 5px solid red;
+  .hover\:text-primary:hover { color: var(--color-primary); }
+  .hover\:text-dark:hover    { color: var(--color-dark); }
+
+  .placeholder\:text-faint::placeholder { color: var(--color-faint); }
+  .placeholder\:text-muted::placeholder { color: var(--color-muted); }
+
+  /* ── Background ── */
+  .bg-primary      { background-color: var(--color-primary); }
+  .bg-primary-dark { background-color: var(--color-primary-dark); }
+  .bg-surface      { background-color: var(--color-surface); }
+  .bg-accent       { background-color: var(--color-accent); }
+
+  .hover\:bg-primary:hover      { background-color: var(--color-primary); }
+  .hover\:bg-primary-dark:hover { background-color: var(--color-primary-dark); }
+
+  .bg-primary\/5  { background-color: color-mix(in srgb, var(--color-primary)  5%, transparent); }
+  .bg-primary\/8  { background-color: color-mix(in srgb, var(--color-primary)  8%, transparent); }
+  .bg-primary\/10 { background-color: color-mix(in srgb, var(--color-primary) 10%, transparent); }
+  .hover\:bg-primary\/10:hover { background-color: color-mix(in srgb, var(--color-primary) 10%, transparent); }
+
+  /* ── Border ── */
+  .border-primary      { border-color: var(--color-primary); }
+  .border-primary-dark { border-color: var(--color-primary-dark); }
+  .border-accent       { border-color: var(--color-accent); }
+
+  .hover\:border-primary:hover { border-color: var(--color-primary); }
+
+  .border-primary\/25 { border-color: color-mix(in srgb, var(--color-primary) 25%, transparent); }
+  .border-primary\/30 { border-color: color-mix(in srgb, var(--color-primary) 30%, transparent); }
+  .border-primary\/60 { border-color: color-mix(in srgb, var(--color-primary) 60%, transparent); }
+  .hover\:border-primary\/60:hover { border-color: color-mix(in srgb, var(--color-primary) 60%, transparent); }
+
+  .focus\:border-primary:focus { border-color: var(--color-primary); }
+
+  /* ── Focus ring ── */
+  .focus\:ring-primary:focus { --tw-ring-color: var(--color-primary); }
+  .ring-primary              { --tw-ring-color: var(--color-primary); }
+  .ring-accent               { --tw-ring-color: var(--color-accent); }
 }

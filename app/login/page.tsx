@@ -5,8 +5,8 @@ import Link from 'next/link'
 import { API_BASE_URL } from '@/lib/constants'
 import { saveAuth } from '@/lib/auth'
 
-const INPUT = 'w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-[#374151] outline-none transition-colors focus:border-[#3a6e3f] focus:ring-1 focus:ring-[#3a6e3f]'
-const LABEL = 'mb-1 block text-sm font-medium text-[#333]'
+const INPUT = 'w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-input outline-none transition-colors focus:border-primary focus:ring-1 focus:ring-primary'
+const LABEL = 'mb-1 block text-sm font-medium text-label'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -62,20 +62,20 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#f7f7f5] px-5 pb-16 pt-24">
+    <main className="min-h-screen bg-surface px-5 pb-16 pt-24">
       <div className="mx-auto w-full max-w-sm rounded-2xl border border-black/10 bg-white p-8 shadow-sm">
-        <Link href="/" className="mb-6 block text-sm font-medium text-[#3a6e3f] hover:underline">
+        <Link href="/" className="mb-6 block text-sm font-medium text-primary hover:underline">
           ← Back to home
         </Link>
 
         {justRegistered && (
-          <div className="mb-5 rounded-lg border border-[#3a6e3f]/25 bg-[#3a6e3f]/8 px-4 py-3 text-sm text-[#2a4d2f]">
+          <div className="mb-5 rounded-lg border border-primary/25 bg-primary/8 px-4 py-3 text-sm text-primary-dark">
             Account created! Please confirm your email then log in.
           </div>
         )}
 
-        <h1 className="mb-2 text-2xl font-bold tracking-tight text-[#1a1a1a]">Welcome back</h1>
-        <p className="mb-6 text-sm text-[#666]">Log in to your Check Local First account.</p>
+        <h1 className="mb-2 text-2xl font-bold tracking-tight text-dark">Welcome back</h1>
+        <p className="mb-6 text-sm text-subtle">Log in to your Check Local First account.</p>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div>
@@ -108,15 +108,15 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="mt-1 w-full cursor-pointer rounded-lg bg-[#3a6e3f] py-3 text-sm font-semibold text-white transition-colors hover:bg-[#2a4d2f] disabled:opacity-60"
+            className="mt-1 w-full cursor-pointer rounded-lg bg-primary py-3 text-sm font-semibold text-white transition-colors hover:bg-primary-dark disabled:opacity-60"
           >
             {loading ? 'Logging in…' : 'Log In'}
           </button>
         </form>
 
-        <p className="mt-6 text-center text-sm text-[#666]">
+        <p className="mt-6 text-center text-sm text-subtle">
           Don&apos;t have an account?{' '}
-          <Link href="/signup" className="font-medium text-[#3a6e3f] hover:underline">Sign up →</Link>
+          <Link href="/signup" className="font-medium text-primary hover:underline">Sign up →</Link>
         </p>
       </div>
     </main>

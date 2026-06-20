@@ -81,7 +81,7 @@ export default function FavoriteButton({ businessId, className = '' }: Props) {
     <button
       onClick={toggle}
       aria-label={isFavorited ? 'Remove from favorites' : 'Save to favorites'}
-      className={`cursor-pointer flex items-center justify-center w-8 h-8 rounded-full bg-white/90 shadow-sm transition-transform hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7ec9a4] ${className}`}
+      className={`cursor-pointer flex items-center justify-center w-8 h-8 rounded-full bg-white/90 shadow-sm transition-transform hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent ${className}`}
     >
       <svg
         width="16"

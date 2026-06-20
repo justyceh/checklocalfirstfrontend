@@ -72,15 +72,15 @@ function Icon({ name }: { name: string }): ReactNode {
 
 export default function TrustSection() {
   return (
-    <section className="bg-[#f7f7f5] px-5 py-16 sm:py-24">
+    <section className="bg-surface px-5 py-16 sm:py-24">
       <div className="mx-auto max-w-5xl">
 
         {/* Header */}
         <div className="mb-12 text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-[#1a1a1a] sm:text-4xl">
+          <h2 className="text-3xl font-bold tracking-tight text-dark sm:text-4xl">
             {CONTENT.heading}
           </h2>
-          <p className="mt-3 text-base leading-relaxed text-[#666]">
+          <p className="mt-3 text-base leading-relaxed text-subtle">
             {CONTENT.subtext}
           </p>
         </div>
@@ -89,11 +89,11 @@ export default function TrustSection() {
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
           {CARDS.map(card => (
             <div key={card.title} className="rounded-2xl border border-black/6 bg-white p-7">
-              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#3a6e3f]/10 text-[#3a6e3f]">
+              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary">
                 <Icon name={card.icon} />
               </div>
-              <h3 className="mt-5 text-base font-semibold text-[#1a1a1a]">{card.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-[#666]">{card.body}</p>
+              <h3 className="mt-5 text-base font-semibold text-dark">{card.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-subtle">{card.body}</p>
             </div>
           ))}
         </div>

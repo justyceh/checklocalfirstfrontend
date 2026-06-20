@@ -39,14 +39,14 @@ export default function SearchBar({
 
   return (
     <div className="mb-8">
-      <div className="flex items-center gap-[10px] rounded-xl bg-white border border-black/10 pb-[6px] pl-4 pr-[6px] pt-[6px] shadow-sm">
+      <div className="flex items-center gap-2.5 rounded-xl bg-white border border-black/10 px-5 py-2 shadow-sm">
         <svg
-          className="shrink-0"
+          className="shrink-0 text-muted"
           width="18"
           height="18"
           viewBox="0 0 24 24"
           fill="none"
-          stroke="#555"
+          stroke="currentColor"
           strokeWidth="2.2"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -57,7 +57,7 @@ export default function SearchBar({
         </svg>
         <input
           type="search"
-          className="min-w-0 flex-1 border-0 bg-transparent py-[10px] text-base text-[#374151] outline-none placeholder:text-[#aaa]"
+          className="min-w-0 flex-1 border-0 bg-transparent py-2.5 text-base text-input outline-none placeholder:text-faint"
           placeholder="Search local businesses…"
           value={query}
           onChange={e => setQuery(e.target.value)}
@@ -65,7 +65,7 @@ export default function SearchBar({
         />
         <button
           onClick={handleSearch}
-          className="shrink-0 cursor-pointer whitespace-nowrap rounded-lg bg-[#3a6e3f] px-[18px] py-[9px] text-[0.875rem] font-semibold text-white transition-colors duration-150 hover:bg-[#2a4d2f]"
+          className="shrink-0 cursor-pointer whitespace-nowrap rounded-lg bg-primary px-5 py-2 text-sm font-semibold text-white transition-colors duration-150 hover:bg-primary-dark"
         >
           Search
         </button>
@@ -78,8 +78,8 @@ export default function SearchBar({
             onClick={() => handleCategoryClick(cat.slug)}
             className={
               selectedCategory === cat.slug
-                ? 'cursor-pointer whitespace-nowrap rounded-full border-[1.5px] border-[#3a6e3f] bg-[#3a6e3f] px-[14px] py-[5px] text-xs font-semibold text-white transition-colors duration-150'
-                : 'cursor-pointer whitespace-nowrap rounded-full border-[1.5px] border-black/15 bg-transparent px-[14px] py-[5px] text-xs text-[#555] transition-colors duration-150 hover:border-[#3a6e3f]/50 hover:text-[#3a6e3f]'
+                ? 'cursor-pointer whitespace-nowrap rounded-full border-[1.5px] border-primary bg-primary px-4 py-1.5 text-xs font-semibold text-white transition-colors duration-150'
+                : 'cursor-pointer whitespace-nowrap rounded-full border-[1.5px] border-black/15 bg-transparent px-4 py-1.5 text-xs text-body transition-colors duration-150 hover:border-primary/50 hover:text-primary'
             }
           >
             {cat.name}

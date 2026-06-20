@@ -31,7 +31,7 @@ export default async function HeroSection5() {
 
         {featured.length > 0 && (
           <div className="mt-5">
-            <h2 className="mb-3 text-center text-3xl font-bold tracking-tight text-[#1a1a1a]">
+            <h2 className="mb-3 text-center text-3xl font-bold tracking-tight text-dark">
               Check Local First
             </h2>
 

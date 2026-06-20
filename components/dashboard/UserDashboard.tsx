@@ -4,8 +4,8 @@ import Link from 'next/link';
 import { API_BASE_URL } from '@/lib/constants';
 import { getAuthHeaders, clearAuth, type AuthState } from '@/lib/auth';
 
-const INPUT = 'w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-[#374151] outline-none transition-colors focus:border-[#3a6e3f] focus:ring-1 focus:ring-[#3a6e3f]';
-const LABEL = 'mb-1 block text-sm font-medium text-[#333]';
+const INPUT = 'w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-input outline-none transition-colors focus:border-primary focus:ring-1 focus:ring-primary';
+const LABEL = 'mb-1 block text-sm font-medium text-label';
 
 type UserProfile = {
   user_id: string;
@@ -111,19 +111,19 @@ export default function UserDashboard({ auth }: { auth: AuthState }) {
   }
 
   return (
-    <div className="min-h-screen bg-[#f7f7f5] pt-24 pb-16 px-5">
+    <div className="min-h-screen bg-surface pt-20 sm:pt-24 pb-16 px-5">
       <div className="mx-auto max-w-lg">
-        <h1 className="text-3xl font-bold tracking-tight text-[#1a1a1a] mb-1">My Account</h1>
-        <p className="text-sm text-[#888] mb-8">Manage your profile and account settings.</p>
+        <h1 className="text-3xl font-bold tracking-tight text-dark mb-1">My Account</h1>
+        <p className="text-sm text-muted mb-8">Manage your profile and account settings.</p>
 
         {/* Profile card */}
         <section className="rounded-2xl border border-black/10 bg-white p-6 shadow-sm mb-4">
           <div className="flex items-center justify-between mb-5">
-            <h2 className="font-semibold text-[#1a1a1a]">Profile</h2>
+            <h2 className="font-semibold text-dark">Profile</h2>
             {!editing && (
               <button
                 onClick={() => { setEditing(true); setError(''); setSuccess(''); }}
-                className="cursor-pointer text-sm font-medium text-[#3a6e3f] hover:underline"
+                className="cursor-pointer text-sm font-medium text-primary hover:underline"
               >
                 Edit
               </button>
@@ -131,7 +131,7 @@ export default function UserDashboard({ auth }: { auth: AuthState }) {
           </div>
 
           {success && (
-            <p className="mb-4 rounded-lg bg-[#3a6e3f]/10 px-4 py-2.5 text-sm text-[#2a4d2f]">{success}</p>
+            <p className="mb-4 rounded-lg bg-primary/10 px-4 py-2.5 text-sm text-primary-dark">{success}</p>
           )}
 
           {editing ? (
@@ -180,14 +180,14 @@ export default function UserDashboard({ auth }: { auth: AuthState }) {
                 <button
                   type="submit"
                   disabled={saving}
-                  className="cursor-pointer flex-1 rounded-lg bg-[#3a6e3f] py-2.5 text-sm font-semibold text-white hover:bg-[#2a4d2f] disabled:opacity-60 transition-colors"
+                  className="cursor-pointer flex-1 rounded-lg bg-primary py-2.5 text-sm font-semibold text-white hover:bg-primary-dark disabled:opacity-60 transition-colors"
                 >
                   {saving ? 'Saving…' : 'Save Changes'}
                 </button>
                 <button
                   type="button"
                   onClick={() => { setEditing(false); setError(''); }}
-                  className="cursor-pointer flex-1 rounded-lg border border-black/15 py-2.5 text-sm font-medium text-[#555] hover:bg-black/5 transition-colors"
+                  className="cursor-pointer flex-1 rounded-lg border border-black/15 py-2.5 text-sm font-medium text-body hover:bg-black/5 transition-colors"
                 >
                   Cancel
                 </button>
@@ -196,37 +196,37 @@ export default function UserDashboard({ auth }: { auth: AuthState }) {
           ) : profile ? (
             <dl className="flex flex-col gap-4 text-sm">
               <div>
-                <dt className="text-[#888] mb-0.5">Name</dt>
-                <dd className="font-medium text-[#1a1a1a]">{profile.first_name} {profile.last_name}</dd>
+                <dt className="text-muted mb-0.5">Name</dt>
+                <dd className="font-medium text-dark">{profile.first_name} {profile.last_name}</dd>
               </div>
               <div>
-                <dt className="text-[#888] mb-0.5">Email</dt>
-                <dd className="font-medium text-[#1a1a1a]">{profile.email}</dd>
+                <dt className="text-muted mb-0.5">Email</dt>
+                <dd className="font-medium text-dark">{profile.email}</dd>
               </div>
               <div>
-                <dt className="text-[#888] mb-0.5">Phone</dt>
-                <dd className="font-medium text-[#1a1a1a]">{profile.phone || '—'}</dd>
+                <dt className="text-muted mb-0.5">Phone</dt>
+                <dd className="font-medium text-dark">{profile.phone || '—'}</dd>
               </div>
             </dl>
           ) : (
             <div className="flex h-20 items-center justify-center">
-              <div className="h-5 w-5 animate-spin rounded-full border-2 border-[#3a6e3f] border-t-transparent" />
+              <div className="h-5 w-5 animate-spin rounded-full border-2 border-primary border-t-transparent" />
             </div>
           )}
         </section>
 
         {/* Saved Businesses card */}
         <section className="rounded-2xl border border-black/10 bg-white p-6 shadow-sm mb-4">
-          <h2 className="font-semibold text-[#1a1a1a] mb-4">Saved Businesses</h2>
+          <h2 className="font-semibold text-dark mb-4">Saved Businesses</h2>
 
           {favLoading ? (
             <div className="flex h-16 items-center justify-center">
-              <div className="h-5 w-5 animate-spin rounded-full border-2 border-[#3a6e3f] border-t-transparent" />
+              <div className="h-5 w-5 animate-spin rounded-full border-2 border-primary border-t-transparent" />
             </div>
           ) : favorites.length === 0 ? (
-            <p className="text-sm text-[#888]">
+            <p className="text-sm text-muted">
               No saved businesses yet. Browse{' '}
-              <Link href="/businesses" className="text-[#3a6e3f] hover:underline">
+              <Link href="/businesses" className="text-primary hover:underline">
                 local businesses
               </Link>
               {' '}and tap the heart to save your favorites.
@@ -238,12 +238,12 @@ export default function UserDashboard({ auth }: { auth: AuthState }) {
                   <div className="min-w-0">
                     <Link
                       href={`/businesses/${fav.businesses.slug}`}
-                      className="text-sm font-medium text-[#1a1a1a] hover:text-[#3a6e3f] transition-colors truncate block"
+                      className="text-sm font-medium text-dark hover:text-primary transition-colors truncate block"
                     >
                       {fav.businesses.name}
                     </Link>
                     {(fav.businesses.city || fav.businesses.state) && (
-                      <p className="text-xs text-[#888] mt-0.5">
+                      <p className="text-xs text-muted mt-0.5">
                         {[fav.businesses.city, fav.businesses.state].filter(Boolean).join(', ')}
                       </p>
                     )}
@@ -251,7 +251,7 @@ export default function UserDashboard({ auth }: { auth: AuthState }) {
                   <button
                     onClick={() => removeFavorite(String(fav.business_id))}
                     aria-label={`Remove ${fav.businesses.name} from favorites`}
-                    className="cursor-pointer shrink-0 flex items-center justify-center w-8 h-8 rounded-full hover:bg-[#7ec9a4]/15 transition-colors"
+                    className="cursor-pointer shrink-0 flex items-center justify-center w-8 h-8 rounded-full hover:bg-accent/15 transition-colors"
                   >
                     <svg
                       width="16"
@@ -275,11 +275,11 @@ export default function UserDashboard({ auth }: { auth: AuthState }) {
 
         {/* Account card */}
         <section className="rounded-2xl border border-black/10 bg-white p-6 shadow-sm">
-          <h2 className="font-semibold text-[#1a1a1a] mb-4">Account</h2>
+          <h2 className="font-semibold text-dark mb-4">Account</h2>
           <button
             onClick={handleLogout}
             disabled={loggingOut}
-            className="cursor-pointer w-full rounded-lg border border-black/15 py-2.5 text-sm font-medium text-[#555] hover:bg-black/5 disabled:opacity-60 transition-colors"
+            className="cursor-pointer w-full rounded-lg border border-black/15 py-2.5 text-sm font-medium text-body hover:bg-black/5 disabled:opacity-60 transition-colors"
           >
             {loggingOut ? 'Logging out…' : 'Log Out'}
           </button>

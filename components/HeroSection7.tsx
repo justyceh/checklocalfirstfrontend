@@ -52,12 +52,12 @@ export default async function HeroSection7() {
 
       {/* ── BOTTOM 40% – featured businesses ── */}
       <div className="flex flex-[4] flex-col overflow-hidden bg-white px-5 pb-4 pt-5">
-        <h2 className="shrink-0 text-lg font-bold tracking-tight text-[#1a1a1a]">
+        <h2 className="shrink-0 text-lg font-bold tracking-tight text-dark">
           Featured Businesses
         </h2>
 
         {featured.length > 0 ? (
-          <div className="mt-3 grid flex-1 grid-cols-3 gap-4 overflow-hidden">
+          <div className="mt-3 grid flex-1 grid-cols-2 sm:grid-cols-3 gap-4 overflow-hidden">
             {featured.map(biz => (
               <Link key={biz.id} href={`/businesses/${biz.slug}`} className="group block min-h-0">
                 <div className="relative h-[calc(100%-2rem)] w-full overflow-hidden rounded-xl bg-[#f0ede8]">
@@ -71,12 +71,12 @@ export default async function HeroSection7() {
                     />
                   )}
                 </div>
-                <p className="mt-1.5 truncate text-sm font-semibold text-[#1a1a1a]">{biz.name}</p>
+                <p className="mt-1.5 truncate text-sm font-semibold text-dark">{biz.name}</p>
               </Link>
             ))}
           </div>
         ) : (
-          <p className="mt-3 text-sm text-[#888]">No businesses found.</p>
+          <p className="mt-3 text-sm text-muted">No businesses found.</p>
         )}
       </div>
 

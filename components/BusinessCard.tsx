@@ -24,7 +24,7 @@ export default function BusinessCard({ business, photoSrc }: Props) {
       )}
 
       <div className="flex flex-col gap-3 p-5">
-        <h2 className="text-lg font-semibold text-[#1a1a1a] leading-snug">
+        <h2 className="text-lg font-semibold text-dark leading-snug">
           <Link
             href={`/businesses/${business.slug}`}
             className="after:absolute after:inset-0 after:content-['']"
@@ -34,7 +34,7 @@ export default function BusinessCard({ business, photoSrc }: Props) {
         </h2>
 
         {business.description && (
-          <p className="relative z-10 text-sm text-[#555] leading-relaxed line-clamp-2">{business.description}</p>
+          <p className="relative z-10 text-sm text-body leading-relaxed line-clamp-2">{business.description}</p>
         )}
       </div>
 

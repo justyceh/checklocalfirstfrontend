@@ -36,7 +36,7 @@ export default function HeroSection6() {
 
           <div className="mt-8 flex items-center gap-2.5 rounded-full border border-white/20 bg-white px-5 py-2 shadow-[0_8px_40px_rgba(0,0,0,0.3)]">
             <svg
-              className="shrink-0 text-[#888]"
+              className="shrink-0 text-muted"
               width="20"
               height="20"
               viewBox="0 0 24 24"
@@ -52,7 +52,7 @@ export default function HeroSection6() {
             </svg>
             <input
               type="search"
-              className="min-w-0 flex-1 border-0 bg-transparent py-2 text-base text-[#374151] outline-none placeholder:text-[#aaa]"
+              className="min-w-0 flex-1 border-0 bg-transparent py-2 text-base text-input outline-none placeholder:text-faint"
               placeholder="Looking for local..."
               value={query}
               onChange={e => setQuery(e.target.value)}
@@ -60,7 +60,7 @@ export default function HeroSection6() {
             />
             <button
               onClick={handleSearch}
-              className="shrink-0 cursor-pointer whitespace-nowrap rounded-full bg-[#3a6e3f] px-5 py-2 text-sm font-semibold text-white transition-colors duration-150 hover:bg-[#2a4d2f]"
+              className="shrink-0 cursor-pointer whitespace-nowrap rounded-full bg-primary px-5 py-2 text-sm font-semibold text-white transition-colors duration-150 hover:bg-primary-dark"
             >
               Search
             </button>
@@ -71,10 +71,10 @@ export default function HeroSection6() {
       {/* ── BOTTOM HALF – who are we ── */}
       <div className="bg-white px-5 py-12">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-[#1a1a1a]">
+          <h2 className="text-3xl font-bold tracking-tight text-dark">
             Who are we?
           </h2>
-          <p className="mt-3 text-base leading-relaxed text-[#555]">
+          <p className="mt-3 text-base leading-relaxed text-body">
             We are local business owners who believe in community — Check Local First connects Reno residents with genuine local shops and services that keep money in the community.
           </p>
 
@@ -86,7 +86,7 @@ export default function HeroSection6() {
               className="object-cover"
               sizes="(min-width: 768px) 672px, 100vw"
             />
-            <div className="absolute top-4 left-4 flex items-center gap-1.5 rounded-xl bg-[#3a6e3f] px-4 py-2.5 text-sm font-semibold text-white shadow-lg">
+            <div className="absolute top-4 left-4 flex items-center gap-1.5 rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-white shadow-lg">
               <svg
                 width="14"
                 height="14"

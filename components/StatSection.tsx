@@ -26,14 +26,14 @@ export default function StatSection() {
 
           {/* Left — heading + stats */}
           <div>
-            <h2 className="text-3xl font-bold tracking-tight text-[#1a1a1a] sm:text-4xl">
+            <h2 className="text-3xl font-bold tracking-tight text-dark sm:text-4xl">
               {CONTENT.heading}
             </h2>
             <div className="mt-10 flex flex-col divide-y divide-black/8">
               {STATS.map(stat => (
                 <div key={stat.label} className="flex items-baseline gap-4 py-5 first:pt-0 last:pb-0">
-                  <span className="text-4xl font-bold tracking-tight text-[#3a6e3f]">{stat.value}</span>
-                  <span className="text-base text-[#555]">{stat.label}</span>
+                  <span className="text-4xl font-bold tracking-tight text-primary">{stat.value}</span>
+                  <span className="text-base text-body">{stat.label}</span>
                 </div>
               ))}
             </div>

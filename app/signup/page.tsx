@@ -6,9 +6,9 @@ import { API_BASE_URL } from '@/lib/constants'
 
 type Tab = 'user' | 'business'
 
-const INPUT = 'w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-[#374151] outline-none transition-colors focus:border-[#3a6e3f] focus:ring-1 focus:ring-[#3a6e3f]'
-const LABEL = 'mb-1 block text-sm font-medium text-[#333]'
-const SECTION = 'mb-1 mt-6 text-xs font-semibold uppercase tracking-wider text-[#888]'
+const INPUT = 'w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-input outline-none transition-colors focus:border-primary focus:ring-1 focus:ring-primary'
+const LABEL = 'mb-1 block text-sm font-medium text-label'
+const SECTION = 'mb-1 mt-6 text-xs font-semibold uppercase tracking-wider text-muted'
 
 function Field({ label, id, ...props }: { label: string; id: string } & React.InputHTMLAttributes<HTMLInputElement>) {
   return (
@@ -64,7 +64,7 @@ function UserForm({ onSuccess, onError, loading, setLoading }: {
         <Field label="Password" id="u-password" type="password" required minLength={6} value={fields.password} onChange={set('password')} autoComplete="new-password" />
         <Field label="Confirm Password" id="u-confirm" type="password" required value={fields.confirm} onChange={set('confirm')} autoComplete="new-password" />
       </div>
-      <button type="submit" disabled={loading} className="mt-2 w-full cursor-pointer rounded-lg bg-[#3a6e3f] py-3 text-sm font-semibold text-white transition-colors hover:bg-[#2a4d2f] disabled:opacity-60">
+      <button type="submit" disabled={loading} className="mt-2 w-full cursor-pointer rounded-lg bg-primary py-3 text-sm font-semibold text-white transition-colors hover:bg-primary-dark disabled:opacity-60">
         {loading ? 'Creating account…' : 'Create Account'}
       </button>
     </form>
@@ -138,7 +138,7 @@ function BusinessForm({ onSuccess, onError, loading, setLoading }: {
           required
           value={fields.description}
           onChange={set('description')}
-          className="w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-[#374151] outline-none transition-colors focus:border-[#3a6e3f] focus:ring-1 focus:ring-[#3a6e3f] resize-none"
+          className="w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-input outline-none transition-colors focus:border-primary focus:ring-1 focus:ring-primary resize-none"
         />
       </div>
       <Field label="Street Address" id="b-address" required value={fields.address} onChange={set('address')} autoComplete="street-address" />
@@ -150,7 +150,7 @@ function BusinessForm({ onSuccess, onError, loading, setLoading }: {
         <Field label="Zip" id="b-zip" required value={fields.zip} onChange={set('zip')} autoComplete="postal-code" />
       </div>
 
-      <button type="submit" disabled={loading} className="mt-2 w-full cursor-pointer rounded-lg bg-[#3a6e3f] py-3 text-sm font-semibold text-white transition-colors hover:bg-[#2a4d2f] disabled:opacity-60">
+      <button type="submit" disabled={loading} className="mt-2 w-full cursor-pointer rounded-lg bg-primary py-3 text-sm font-semibold text-white transition-colors hover:bg-primary-dark disabled:opacity-60">
         {loading ? 'Creating account…' : 'Create Business Account'}
       </button>
     </form>
@@ -168,21 +168,21 @@ export default function SignupPage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#f7f7f5] px-5 pb-16 pt-24">
+    <main className="min-h-screen bg-surface px-5 pb-16 pt-24">
       <div className="mx-auto w-full max-w-lg rounded-2xl border border-black/10 bg-white p-8 shadow-sm">
-        <Link href="/" className="mb-6 block text-sm font-medium text-[#3a6e3f] hover:underline">
+        <Link href="/" className="mb-6 block text-sm font-medium text-primary hover:underline">
           ← Back to home
         </Link>
 
-        <h1 className="mb-2 text-2xl font-bold tracking-tight text-[#1a1a1a]">Create your account</h1>
-        <p className="mb-6 text-sm text-[#666]">Join the Check Local First community.</p>
+        <h1 className="mb-2 text-2xl font-bold tracking-tight text-dark">Create your account</h1>
+        <p className="mb-6 text-sm text-subtle">Join the Check Local First community.</p>
 
         <div className="mb-6 flex gap-2">
           <button
             onClick={() => { setTab('user'); setError('') }}
             className={tab === 'user'
-              ? 'cursor-pointer rounded-full border-[1.5px] border-[#3a6e3f] bg-[#3a6e3f] px-4 py-1.75 text-sm font-semibold text-white transition-colors'
-              : 'cursor-pointer rounded-full border-[1.5px] border-black/20 bg-transparent px-4 py-1.75 text-sm text-[#555] transition-colors hover:border-[#3a6e3f]/60 hover:text-[#3a6e3f]'
+              ? 'cursor-pointer rounded-full border-[1.5px] border-primary bg-primary px-4 py-1.75 text-sm font-semibold text-white transition-colors'
+              : 'cursor-pointer rounded-full border-[1.5px] border-black/20 bg-transparent px-4 py-1.75 text-sm text-body transition-colors hover:border-primary/60 hover:text-primary'
             }
           >
             Personal Account
@@ -190,8 +190,8 @@ export default function SignupPage() {
           <button
             onClick={() => { setTab('business'); setError('') }}
             className={tab === 'business'
-              ? 'cursor-pointer rounded-full border-[1.5px] border-[#3a6e3f] bg-[#3a6e3f] px-4 py-1.75 text-sm font-semibold text-white transition-colors'
-              : 'cursor-pointer rounded-full border-[1.5px] border-black/20 bg-transparent px-4 py-1.75 text-sm text-[#555] transition-colors hover:border-[#3a6e3f]/60 hover:text-[#3a6e3f]'
+              ? 'cursor-pointer rounded-full border-[1.5px] border-primary bg-primary px-4 py-1.75 text-sm font-semibold text-white transition-colors'
+              : 'cursor-pointer rounded-full border-[1.5px] border-black/20 bg-transparent px-4 py-1.75 text-sm text-body transition-colors hover:border-primary/60 hover:text-primary'
             }
           >
             Business Account
@@ -205,9 +205,9 @@ export default function SignupPage() {
 
         {error && <p className="mt-4 text-sm text-red-600">{error}</p>}
 
-        <p className="mt-6 text-center text-sm text-[#666]">
+        <p className="mt-6 text-center text-sm text-subtle">
           Already have an account?{' '}
-          <Link href="/login" className="font-medium text-[#3a6e3f] hover:underline">Log in →</Link>
+          <Link href="/login" className="font-medium text-primary hover:underline">Log in →</Link>
         </p>
       </div>
     </main>

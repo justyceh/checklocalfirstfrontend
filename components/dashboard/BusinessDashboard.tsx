@@ -6,8 +6,8 @@ import { getAuthHeaders, clearAuth, type AuthState } from '@/lib/auth';
 import type { Business, BusinessService } from '@/lib/types';
 import ServiceManager from './ServiceManager';
 
-const INPUT = 'w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-[#374151] outline-none transition-colors focus:border-[#3a6e3f] focus:ring-1 focus:ring-[#3a6e3f]';
-const LABEL = 'mb-1 block text-sm font-medium text-[#333]';
+const INPUT = 'w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-input outline-none transition-colors focus:border-primary focus:ring-1 focus:ring-primary';
+const LABEL = 'mb-1 block text-sm font-medium text-label';
 
 export default function BusinessDashboard({ auth }: { auth: AuthState }) {
   const router = useRouter();
@@ -91,8 +91,6 @@ export default function BusinessDashboard({ auth }: { auth: AuthState }) {
   async function handleDeleteBusiness() {
     if (!business || deleteConfirm !== business.name) return;
     setDeleting(true);
-    console.log('Auth headers:', getAuthHeaders());  // ← add this
-  console.log('Deleting slug:', business.slug); 
     try {
       const res = await fetch(`${API_BASE_URL}businesses/${business.slug}`, {
         method: 'DELETE',
@@ -109,36 +107,36 @@ export default function BusinessDashboard({ auth }: { auth: AuthState }) {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#f7f7f5]">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-[#3a6e3f] border-t-transparent" />
+      <div className="flex min-h-screen items-center justify-center bg-surface">
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
       </div>
     );
   }
 
   if (!business) {
     return (
-      <div className="min-h-screen bg-[#f7f7f5] pt-24 pb-16 px-5">
+      <div className="min-h-screen bg-surface pt-20 sm:pt-24 pb-16 px-5">
         <div className="mx-auto max-w-lg text-center pt-8">
-          <p className="text-[#555]">No business listing found for this account.</p>
+          <p className="text-body">No business listing found for this account.</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#f7f7f5] pt-24 pb-16 px-5">
+    <div className="min-h-screen bg-surface pt-20 sm:pt-24 pb-16 px-5">
       <div className="mx-auto max-w-2xl">
-        <h1 className="text-3xl font-bold tracking-tight text-[#1a1a1a] mb-1">Business Dashboard</h1>
-        <p className="text-sm text-[#888] mb-8">Manage your listing, services, and account.</p>
+        <h1 className="text-3xl font-bold tracking-tight text-dark mb-1">Business Dashboard</h1>
+        <p className="text-sm text-muted mb-8">Manage your listing, services, and account.</p>
 
         {/* Business info card */}
         <section className="rounded-2xl border border-black/10 bg-white p-6 shadow-sm mb-4">
           <div className="flex items-center justify-between mb-5">
-            <h2 className="font-semibold text-[#1a1a1a]">Business Info</h2>
+            <h2 className="font-semibold text-dark">Business Info</h2>
             {!editing && (
               <button
                 onClick={() => { setEditing(true); setBizError(''); setBizSuccess(''); }}
-                className="cursor-pointer text-sm font-medium text-[#3a6e3f] hover:underline"
+                className="cursor-pointer text-sm font-medium text-primary hover:underline"
               >
                 Edit
               </button>
@@ -146,7 +144,7 @@ export default function BusinessDashboard({ auth }: { auth: AuthState }) {
           </div>
 
           {bizSuccess && (
-            <p className="mb-4 rounded-lg bg-[#3a6e3f]/10 px-4 py-2.5 text-sm text-[#2a4d2f]">{bizSuccess}</p>
+            <p className="mb-4 rounded-lg bg-primary/10 px-4 py-2.5 text-sm text-primary-dark">{bizSuccess}</p>
           )}
 
           {editing ? (
@@ -189,10 +187,10 @@ export default function BusinessDashboard({ auth }: { auth: AuthState }) {
               </div>
               {bizError && <p className="text-sm text-red-600">{bizError}</p>}
               <div className="flex gap-3 pt-1">
-                <button type="submit" disabled={saving} className="cursor-pointer flex-1 rounded-lg bg-[#3a6e3f] py-2.5 text-sm font-semibold text-white hover:bg-[#2a4d2f] disabled:opacity-60 transition-colors">
+                <button type="submit" disabled={saving} className="cursor-pointer flex-1 rounded-lg bg-primary py-2.5 text-sm font-semibold text-white hover:bg-primary-dark disabled:opacity-60 transition-colors">
                   {saving ? 'Saving…' : 'Save Changes'}
                 </button>
-                <button type="button" onClick={() => { setEditing(false); setBizError(''); }} className="cursor-pointer flex-1 rounded-lg border border-black/15 py-2.5 text-sm font-medium text-[#555] hover:bg-black/5 transition-colors">
+                <button type="button" onClick={() => { setEditing(false); setBizError(''); }} className="cursor-pointer flex-1 rounded-lg border border-black/15 py-2.5 text-sm font-medium text-body hover:bg-black/5 transition-colors">
                   Cancel
                 </button>
               </div>
@@ -200,32 +198,32 @@ export default function BusinessDashboard({ auth }: { auth: AuthState }) {
           ) : (
             <dl className="flex flex-col gap-4 text-sm">
               <div>
-                <dt className="text-[#888] mb-0.5">Name</dt>
-                <dd className="font-medium text-[#1a1a1a]">{business.name}</dd>
+                <dt className="text-muted mb-0.5">Name</dt>
+                <dd className="font-medium text-dark">{business.name}</dd>
               </div>
               {business.description && (
                 <div>
-                  <dt className="text-[#888] mb-0.5">Description</dt>
-                  <dd className="text-[#333]">{String(business.description)}</dd>
+                  <dt className="text-muted mb-0.5">Description</dt>
+                  <dd className="text-label">{String(business.description)}</dd>
                 </div>
               )}
               {business.address && (
                 <div>
-                  <dt className="text-[#888] mb-0.5">Address</dt>
-                  <dd className="text-[#333]">{[business.address, business.city, business.state, business.zip].filter(Boolean).join(', ')}</dd>
+                  <dt className="text-muted mb-0.5">Address</dt>
+                  <dd className="text-label">{[business.address, business.city, business.state, business.zip].filter(Boolean).join(', ')}</dd>
                 </div>
               )}
               <div className="flex gap-6">
                 {business.phone && (
                   <div>
-                    <dt className="text-[#888] mb-0.5">Phone</dt>
-                    <dd className="text-[#333]">{String(business.phone)}</dd>
+                    <dt className="text-muted mb-0.5">Phone</dt>
+                    <dd className="text-label">{String(business.phone)}</dd>
                   </div>
                 )}
                 {business.email && (
                   <div>
-                    <dt className="text-[#888] mb-0.5">Email</dt>
-                    <dd className="text-[#333]">{String(business.email)}</dd>
+                    <dt className="text-muted mb-0.5">Email</dt>
+                    <dd className="text-label">{String(business.email)}</dd>
                   </div>
                 )}
               </div>
@@ -244,11 +242,11 @@ export default function BusinessDashboard({ auth }: { auth: AuthState }) {
 
         {/* Account card */}
         <section className="rounded-2xl border border-black/10 bg-white p-6 shadow-sm mb-4">
-          <h2 className="font-semibold text-[#1a1a1a] mb-4">Account</h2>
+          <h2 className="font-semibold text-dark mb-4">Account</h2>
           <button
             onClick={handleLogout}
             disabled={loggingOut}
-            className="cursor-pointer w-full rounded-lg border border-black/15 py-2.5 text-sm font-medium text-[#555] hover:bg-black/5 disabled:opacity-60 transition-colors"
+            className="cursor-pointer w-full rounded-lg border border-black/15 py-2.5 text-sm font-medium text-body hover:bg-black/5 disabled:opacity-60 transition-colors"
           >
             {loggingOut ? 'Logging out…' : 'Log Out'}
           </button>
@@ -257,11 +255,11 @@ export default function BusinessDashboard({ auth }: { auth: AuthState }) {
         {/* Danger zone */}
         <section className="rounded-2xl border border-red-200 bg-white p-6 shadow-sm">
           <h2 className="font-semibold text-red-700 mb-1">Danger Zone</h2>
-          <p className="text-sm text-[#666] mb-5">
+          <p className="text-sm text-subtle mb-5">
             Permanently deletes your business listing and all associated services. This cannot be undone.
           </p>
-          <label className={LABEL + ' text-[#555]'}>
-            Type <span className="font-semibold text-[#1a1a1a]">{business.name}</span> to confirm
+          <label className={LABEL + ' text-body'}>
+            Type <span className="font-semibold text-dark">{business.name}</span> to confirm
           </label>
           <input
             className={INPUT + ' mb-3 mt-1'}
