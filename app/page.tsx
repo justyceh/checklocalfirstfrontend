@@ -5,7 +5,13 @@ import InstructionsSection from '@/components/InstructionsSection';
 import FeaturedSection from '@/components/FeaturedSection';
 import StatSection from '@/components/StatSection';
 import FadeIn from '@/components/FadeIn';
+import HeroSection7 from '@/components/HeroSection7';
+import HeroSection8 from '@/components/HeroSection8';
 import HeroSection2 from '@/components/HeroSection2';
+import HeroSection3 from '@/components/HeroSection3';
+import HeroSection4 from '@/components/HeroSection4';
+import HeroSection5 from '@/components/HeroSection5';
+import HeroSection6 from '@/components/HeroSection6';
 
 export const metadata: Metadata = {
   title: 'Check Local First – Shop Local in Reno, NV',
@@ -22,15 +28,15 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-      <HeroSection />
+      <HeroSection8 />
       <FadeIn>
       <TrustSection />
       </FadeIn>
       <FadeIn>
-      <InstructionsSection />
+      <FeaturedSection/>
       </FadeIn>
       <FadeIn>
-      <FeaturedSection />
+      <InstructionsSection />
       </FadeIn>
       <FadeIn>
       <StatSection />

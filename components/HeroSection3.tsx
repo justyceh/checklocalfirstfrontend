@@ -1,13 +1,15 @@
 'use client'
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { Courier_Prime } from 'next/font/google';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 const courierPrime = Courier_Prime({ weight: '400', subsets: ['latin'] });
 
-export default function HeroSection2() {
+export default function HeroSection3() {
   const router = useRouter();
   const [query, setQuery] = useState('');
+
 
   function handleSearch() {
     const q = query.trim();
@@ -17,17 +19,18 @@ export default function HeroSection2() {
     router.push(`/search?${params.toString()}`);
   }
 
+
   return (
     <section className="relative pt-17">
-      <div className="relative z-20 bg-[#1a2e1c] py-2.5 text-center">
+      <div className='relative z-20 py-2.5 text-center bg-[#1a2e1c]'>
         <span className={`${courierPrime.className} tracking-widest text-sm text-[#d4c9a8]`}>
           We are here for local, we are here for you
         </span>
       </div>
 
       <main
-        className="relative flex min-h-screen items-center justify-center bg-cover bg-center py-16 px-5"
-        style={{ backgroundImage: "url('/imgs/businessowners.jpg')" }}
+        className="relative flex flex-col min-h-screen items-center justify-center bg-cover bg-center py-16 px-5"
+        style={{ backgroundImage: "url('/imgs/nestbackground.jpg')" }}
       >
         <div
           className="absolute inset-0 z-0 bg-[linear-gradient(to_bottom,rgba(15,10,5,0.32)_0%,rgba(15,10,5,0.7)_100%)]"
@@ -35,14 +38,13 @@ export default function HeroSection2() {
         />
 
         <div className="relative z-10 w-full max-w-160 text-center">
-          <h1 className="mb-5 text-[clamp(2rem,6vw,3.75rem)] font-bold leading-[1.15] tracking-[-0.02em] text-white [text-shadow:0_2px_20px_rgba(0,0,0,0.4)]">
-            Support Your Neighbors. <br />Check Local First
+          <h1 className={`${courierPrime.className} mb-4 text-4xl font-bold tracking-wide text-white drop-shadow-lg`}>
+            Discover Local Businesses in Reno, NV
           </h1>
-
-          <p className="mb-9 text-[clamp(1rem,2.5vw,1.15rem)] leading-[1.65] text-white/82">
-            Every dollar spent local, stays local, support genuine, unique businesses
+          <p className="mb-8 max-w-prose mx-auto text-base text-[#e8e0cc] drop-shadow">
+            Check Local First connects you with unique local shops, services, and people
+            who keep money in the community.
           </p>
-
           <div className="flex items-center gap-2.5 rounded-xl bg-white pb-1.5 pl-4 pr-1.5 pt-1.5 shadow-[0_8px_48px_rgba(0,0,0,0.35)]">
             <svg
               className="shrink-0"
@@ -76,6 +78,13 @@ export default function HeroSection2() {
           </div>
         </div>
       </main>
+      {/* <Image
+        src="/imgs/boutique.jpg"
+        alt="Hero"
+        fill
+        className="object-cover"
+        priority
+      /> */}
     </section>
   );
 }
