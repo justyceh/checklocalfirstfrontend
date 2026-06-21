@@ -40,13 +40,13 @@ export default function HeroSection8() {
         {/* Headline */}
         <h1 className="font-[family-name:var(--font-playfair)] text-[clamp(2.2rem,5vw,3.75rem)] font-bold leading-[1.1] tracking-[-0.01em] text-dark">
           <span className="block whitespace-nowrap">Support Your</span>
-          <span className="block whitespace-nowrap">Neighbors.</span>
-          <span className="block whitespace-nowrap text-primary">Check Local First.</span>
+          <span className="block whitespace-nowrap">Neighbors</span>
+          <span className="block whitespace-nowrap text-primary">Check Local First</span>
         </h1>
 
         {/* Subheadline */}
         <p className="mt-5 max-w-sm text-lg leading-relaxed text-body">
-          Vote with your dollars, support local businesses.
+          Vote with your dollars, support local businesses
         </p>
 
         {/* Search bar */}
@@ -84,7 +84,7 @@ export default function HeroSection8() {
 
         {/* Trust line */}
         <p className="mt-6 text-sm text-faint">
-          Every dollar spent local stays local.
+          Every dollar spent local stays local
         </p>
 
       </div>

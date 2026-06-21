@@ -56,9 +56,6 @@ export default function Home() {
       <FadeIn>
       <TrustSection/>
       </FadeIn>
-      <FadeIn>
-      <StatSection />
-      </FadeIn>
       <BusinessCta />
     </>
   );

@@ -3,7 +3,7 @@ import Link from 'next/link';
 // ─── Editable content ────────────────────────────────────────────────────────
 
 const CONTENT = {
-  heading: 'Your Business Belongs Here.',
+  heading: 'Be Found By Local Customers',
   subtext: 'List your Reno business for free and get discovered by locals who are actively looking to support you.',
   buttonLabel: 'List Your Business',
   buttonHref: '/signup',

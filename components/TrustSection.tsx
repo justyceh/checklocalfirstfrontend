@@ -3,25 +3,25 @@ import type { ReactNode } from 'react';
 // ─── Editable content ────────────────────────────────────────────────────────
 
 const CONTENT = {
-  heading: 'Every Dollar Counts.',
-  subtext: 'Shopping local keeps money, jobs, and character inside the community you call home.',
+  heading: 'Biggest Little Community',
+  subtext: 'Supporting our neighbors is exactly what makes reno the biggest little community, every dollar spent locally goes right back into our city',
 };
 
 const CARDS = [
   {
     icon: 'home',
-    title: 'Money Stays Here.',
-    body: 'When you shop local, more of every dollar stays in Reno and recirculates through the community.',
+    title: 'Vote With Your Dollars',
+    body: 'Every purchase cast a vote for who you want to support, stop supporting amazon and walmart and vote for your own community',
   },
   {
     icon: 'person',
-    title: 'Real People. Real Care.',
-    body: 'Every local business is run by a Reno neighbor who genuinely cares about their craft and community.',
+    title: 'Reno Residents',
+    body: 'Every locally owned store is run by a Reno neighbor who genuinely cares about their craft and community.',
   },
   {
     icon: 'sparkle',
-    title: "Find What Chains Can't Offer.",
-    body: "Local businesses carry unique products and services you won't find on Amazon or at the mall.",
+    title: "Purchase With Purpose",
+    body: "Every local business in our community offers unique one of a kind finds, so your getting the best and supporting your community.",
   },
 ];
 
