@@ -62,6 +62,15 @@ export default function Navbar() {
 
   const accountDropdown = (
     <div className="absolute right-0 top-full mt-2 w-44 rounded-xl border border-black/10 bg-white shadow-lg py-1 z-50">
+      {accountType === 'admin' && (
+        <Link
+          href="/admin"
+          className="block px-4 py-2.5 text-sm font-medium text-dark hover:bg-black/5 transition-colors"
+          onClick={() => setDropdownOpen(false)}
+        >
+          Admin Dashboard
+        </Link>
+      )}
       <Link
         href="/dashboard"
         className="block px-4 py-2.5 text-sm font-medium text-dark hover:bg-black/5 transition-colors"

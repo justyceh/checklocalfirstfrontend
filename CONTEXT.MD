@@ -123,10 +123,10 @@ Logs the current user out.
 ---
 
 #### `POST /auth/admin/create-user/:account_type`
-🔒 Requires auth (admin only).
+🔒 Requires auth (admin only) — protected by `authMiddleware` + `authAdminMiddleware` in sequence.
 Creates a user with a specific account type (`user`, `business`, or `admin`).
 
-**Params:** `:account_type`
+**Params:** `:account_type` — must be exactly `user`, `business`, or `admin`. Any other value returns a `400`.
 
 **Body:**
 ```json
@@ -144,14 +144,21 @@ Creates a user with a specific account type (`user`, `business`, or `admin`).
 { "message": "User successfully created" }
 ```
 
+**Response `400`** (invalid `:account_type`):
+```json
+{ "message": "Error creating account" }
+```
+
 ---
 
 ### BUSINESSES — `/businesses`
 
+> Public business routes only return businesses with `status: "active"`. Suspended businesses are hidden from all public endpoints below, but remain visible to admins via the `/admin` routes.
+
 ---
 
 #### `GET /businesses`
-Returns all business listings.
+Returns all **active** business listings.
 
 **Response `200`:** Array of business objects.
 ```json
@@ -167,7 +174,8 @@ Returns all business listings.
     "state": "string",
     "zip": "string",
     "phone": "string",
-    "email": "string"
+    "email": "string",
+    "status": "active" | "suspended"
   }
 ]
 ```
@@ -175,7 +183,7 @@ Returns all business listings.
 ---
 
 #### `GET /businesses/:slug`
-Returns a single business by slug.
+Returns a single **active** business by slug. Suspended businesses will not resolve here, even with a direct link.
 
 **Response `200`:** Single business object (same shape as above).
 
@@ -282,7 +290,7 @@ Updates a business listing.
 
 #### `DELETE /businesses/:slug`
 🔒 Requires auth (must be business owner).
-Deletes a business listing.
+Deletes a business listing. This is a full account teardown: deletes the business's services (cascade), the business itself, the owner's `users` row, and the owner's Supabase Auth account.
 
 **Response `200`:**
 ```json
@@ -537,6 +545,137 @@ Returns all favorites for the logged in user, with full business data joined.
   "message": "Removed from favorites"
 }
 ```
+
+---
+
+## ADMIN — `/admin`
+
+🔒 Every route below requires auth **and** an admin account. Enforced at the router level via `router.use(authMiddleware, authAdminMiddleware)` — there are no exceptions, so no individual route needs the middleware repeated.
+
+These routes are for internal moderation use (spam signups, fake listings, garbage data) — not part of the public-facing app. Unlike the public `/businesses` routes, these return businesses **regardless of status**, since reviewing suspended/flagged listings is the point.
+
+---
+
+#### `GET /admin/businesses`
+Returns all businesses, any status, sorted newest first.
+
+**Response `200`:** Array of business objects (full row, including `status`).
+
+---
+
+#### `GET /admin/businesses/:id`
+Returns a single business by `id`, any status.
+
+**Response `200`:** Single business object.
+
+**Response `404`:**
+```json
+{ "error": "..." }
+```
+
+---
+
+#### `PATCH /admin/businesses/:id/status`
+Sets a business's status. Partial update — only `status` is changed, nothing else.
+
+**Body:**
+```json
+{ "status": "active" | "suspended" }
+```
+
+**Response `200`:**
+```json
+{ "message": "Business status updated" }
+```
+
+**Response `400`** (invalid status value):
+```json
+{ "error": "Invalid status value" }
+```
+
+**Response `404`** (business not found):
+```json
+{ "error": "Business not found" }
+```
+
+---
+
+#### `DELETE /admin/businesses/:id`
+Full cascade delete: business's services (DB-level `CASCADE`), the business row itself, the owner's `users` row, and the owner's Supabase Auth account. Mirrors the owner-facing `DELETE /businesses/:slug` behavior — deleting a business as an admin is equivalent to deleting the owner's account.
+
+**Response `200`:**
+```json
+{ "message": "Business successfully deleted" }
+```
+
+**Response `404`** (business not found):
+```json
+{ "error": "Business not found" }
+```
+
+---
+
+#### `GET /admin/users`
+Returns all users, sorted newest first. Useful for spotting signup bursts or accounts with no associated business.
+
+**Response `200`:** Array of full user rows.
+
+---
+
+#### `GET /admin/users/:id`
+Returns a single user by `user_id`.
+
+**Response `200`:** Single user object.
+
+**Response `500`** (not found / query error):
+```json
+{ "error": "..." }
+```
+
+---
+
+#### `DELETE /admin/users/:id`
+Deletes a user's `users` row and Supabase Auth account. If the user owns a business, that business is **not** deleted — its `owner_user_id` is set to `NULL` (DB-level `SET NULL`), and the listing remains live.
+
+Includes two safety checks:
+- **Self-lockout protection** — an admin cannot delete their own account.
+- **Last-admin protection** — the last remaining `account_type: "admin"` row cannot be deleted.
+
+**Response `200`:**
+```json
+{ "message": "User successfully deleted" }
+```
+
+**Response `400`** (self-delete attempt):
+```json
+{ "error": "You cannot delete your own admin account" }
+```
+
+**Response `400`** (last admin):
+```json
+{ "error": "Cannot delete the last remaining admin account" }
+```
+
+**Response `404`** (user not found):
+```json
+{ "error": "User not found" }
+```
+
+---
+
+#### `GET /admin/stats`
+Returns basic moderation/health counts.
+
+**Response `200`:**
+```json
+{
+  "totalBusinesses": "number",
+  "totalUsers": "number",
+  "newSignupsLast24Hours": "number"
+}
+```
+
+---
 
 ## Frontend Conventions
 
