@@ -10,8 +10,8 @@ export default function ServiceResultCard({ service }: { service: ServiceResult 
       className="flex flex-col gap-2 rounded-xl border border-black/10 bg-white p-5 shadow-sm transition-shadow hover:shadow-md"
     >
       <div className="flex items-start justify-between gap-3">
-        <h2 className="text-lg font-semibold text-dark leading-snug">{biz.name}</h2>
-        <span className="shrink-0 rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+        <h2 className="min-w-0 text-lg font-semibold text-dark leading-snug">{biz.name}</h2>
+        <span className="max-w-[50%] shrink-0 truncate rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
           {service.name}
         </span>
       </div>
