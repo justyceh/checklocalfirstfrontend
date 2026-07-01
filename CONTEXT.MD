@@ -320,6 +320,45 @@ Returns all categories.
 }
 ```
 
+#### `POST /categories`
+Creates a new category. **Admin only.**
+ 
+**Request body:**
+```json
+{
+  "name": "string",
+  "slug": "string"
+}
+```
+ 
+**Response `201`:**
+```json
+{
+  "message": "Category created successfully",
+  "data": {
+    "id": "uuid",
+    "name": "string",
+    "slug": "string"
+  }
+}
+```
+ 
+**Response `400`** — missing `name` or `slug`:
+```json
+{
+  "message": "name and slug are required"
+}
+```
+ 
+**Response `500`** — duplicate `name`/`slug` (both are unique) or other DB error:
+```json
+{
+  "error": "string"
+}
+```
+ 
+---
+
 ---
 
 ### SEARCH — `/search`

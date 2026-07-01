@@ -3,6 +3,18 @@ import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { clearAuth, getAuthHeaders, type AuthState } from '@/lib/auth';
 import { API_BASE_URL } from '@/lib/constants';
+import type { Category } from '@/lib/types';
+
+const INPUT = 'w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-input outline-none transition-colors focus:border-primary focus:ring-1 focus:ring-primary';
+const LABEL = 'mb-1 block text-sm font-medium text-label';
+
+function slugify(value: string): string {
+  return value
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
 
 type Stats = {
   totalBusinesses: number;
@@ -42,16 +54,23 @@ const VALID_STATUSES = ['active', 'suspended'] as const;
 
 export default function AdminDashboard({ auth }: { auth: AuthState }) {
   const router = useRouter();
-  const [tab, setTab] = useState<'businesses' | 'users'>('businesses');
+  const [tab, setTab] = useState<'businesses' | 'users' | 'categories'>('businesses');
   const [stats, setStats] = useState<Stats | null>(null);
   const [businesses, setBusinesses] = useState<Business[]>([]);
   const [users, setUsers] = useState<User[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [bizLoading, setBizLoading] = useState(true);
   const [usersLoading, setUsersLoading] = useState(true);
+  const [categoriesLoading, setCategoriesLoading] = useState(true);
   const [togglingId, setTogglingId] = useState<string | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<DeleteTarget | null>(null);
   const [deleting, setDeleting] = useState(false);
   const [deleteError, setDeleteError] = useState('');
+  const [showAddCategory, setShowAddCategory] = useState(false);
+  const [categoryForm, setCategoryForm] = useState({ name: '', slug: '' });
+  const [slugTouched, setSlugTouched] = useState(false);
+  const [categorySaving, setCategorySaving] = useState(false);
+  const [categoryError, setCategoryError] = useState('');
 
   function forceLogout(status: number) {
     if (status === 401 || status === 403) {
@@ -99,11 +118,50 @@ export default function AdminDashboard({ auth }: { auth: AuthState }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const loadCategories = useCallback(async () => {
+    setCategoriesLoading(true);
+    try {
+      const res = await fetch(`${API_BASE_URL}categories`);
+      if (res.ok) {
+        const body = await res.json();
+        setCategories(Array.isArray(body.data) ? body.data : []);
+      }
+    } catch {}
+    setCategoriesLoading(false);
+  }, []);
+
   useEffect(() => {
     loadStats();
     loadBusinesses();
     loadUsers();
-  }, [loadStats, loadBusinesses, loadUsers]);
+    loadCategories();
+  }, [loadStats, loadBusinesses, loadUsers, loadCategories]);
+
+  async function createCategory(e: React.FormEvent) {
+    e.preventDefault();
+    setCategorySaving(true);
+    setCategoryError('');
+    try {
+      const res = await fetch(`${API_BASE_URL}categories`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', ...getAuthHeaders() },
+        body: JSON.stringify(categoryForm),
+      });
+      if (forceLogout(res.status)) return;
+      const body = await res.json().catch(() => ({}));
+      if (res.ok) {
+        setCategories(prev => [...prev, body.data]);
+        setCategoryForm({ name: '', slug: '' });
+        setSlugTouched(false);
+        setShowAddCategory(false);
+      } else {
+        setCategoryError(body.error ?? body.message ?? 'Failed to create category.');
+      }
+    } catch {
+      setCategoryError('Could not reach the server.');
+    }
+    setCategorySaving(false);
+  }
 
   async function toggleStatus(biz: Business) {
     const next = biz.status === 'active' ? 'suspended' : 'active';
@@ -217,6 +275,9 @@ export default function AdminDashboard({ auth }: { auth: AuthState }) {
           </button>
           <button className={tab === 'users' ? TAB_ACTIVE : TAB_INACTIVE} onClick={() => setTab('users')}>
             Users
+          </button>
+          <button className={tab === 'categories' ? TAB_ACTIVE : TAB_INACTIVE} onClick={() => setTab('categories')}>
+            Categories
           </button>
         </div>
 
@@ -382,6 +443,108 @@ export default function AdminDashboard({ auth }: { auth: AuthState }) {
                               Delete
                             </button>
                           </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </>
+            )}
+          </section>
+        )}
+
+        {/* ── CATEGORIES ── */}
+        {tab === 'categories' && (
+          <section className="rounded-2xl border border-black/10 bg-white shadow-sm overflow-hidden">
+            <div className="flex items-center justify-between gap-3 p-4 sm:p-5 border-b border-black/8">
+              <div>
+                <h2 className="font-semibold text-dark">Categories</h2>
+                <p className="text-xs text-muted mt-0.5">
+                  {categories.length} categor{categories.length === 1 ? 'y' : 'ies'}
+                </p>
+              </div>
+              {!showAddCategory && (
+                <button
+                  onClick={() => { setShowAddCategory(true); setCategoryError(''); }}
+                  className="cursor-pointer shrink-0 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-primary-dark transition-colors"
+                >
+                  + Add Category
+                </button>
+              )}
+            </div>
+
+            {showAddCategory && (
+              <form onSubmit={createCategory} className="m-4 sm:m-5 rounded-xl border border-primary/30 bg-primary/5 p-5 flex flex-col gap-3">
+                <p className="text-sm font-semibold text-dark">New Category</p>
+                {categoryError && <p className="text-sm text-red-600">{categoryError}</p>}
+                <div>
+                  <label className={LABEL}>Name</label>
+                  <input
+                    className={INPUT}
+                    value={categoryForm.name}
+                    onChange={e => {
+                      const name = e.target.value;
+                      setCategoryForm(f => ({ name, slug: slugTouched ? f.slug : slugify(name) }));
+                    }}
+                    required
+                    placeholder="e.g. Plumbing"
+                  />
+                </div>
+                <div>
+                  <label className={LABEL}>Slug</label>
+                  <input
+                    className={INPUT}
+                    value={categoryForm.slug}
+                    onChange={e => { setSlugTouched(true); setCategoryForm(f => ({ ...f, slug: e.target.value })); }}
+                    required
+                    placeholder="e.g. plumbing"
+                  />
+                </div>
+                <div className="flex gap-3 pt-1">
+                  <button type="submit" disabled={categorySaving} className="cursor-pointer flex-1 rounded-lg bg-primary py-2.5 text-sm font-semibold text-white hover:bg-primary-dark disabled:opacity-60 transition-colors">
+                    {categorySaving ? 'Adding…' : 'Add Category'}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => { setShowAddCategory(false); setCategoryForm({ name: '', slug: '' }); setSlugTouched(false); setCategoryError(''); }}
+                    className="cursor-pointer flex-1 rounded-lg border border-black/15 py-2.5 text-sm font-medium text-body hover:bg-black/5 transition-colors"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            )}
+
+            {categoriesLoading ? (
+              <Spinner />
+            ) : categories.length === 0 ? (
+              !showAddCategory && <p className="px-6 py-10 text-sm text-muted text-center">No categories found.</p>
+            ) : (
+              <>
+                {/* Mobile cards */}
+                <ul className="md:hidden divide-y divide-black/8">
+                  {categories.map(cat => (
+                    <li key={cat.id} className="p-4">
+                      <p className="font-medium text-dark leading-snug">{cat.name}</p>
+                      <p className="text-xs text-muted mt-0.5">{cat.slug}</p>
+                    </li>
+                  ))}
+                </ul>
+
+                {/* Desktop table */}
+                <div className="hidden md:block overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="border-b border-black/8 bg-black/2">
+                        <th className="px-5 py-3 text-left text-xs font-semibold text-muted uppercase tracking-wide">Name</th>
+                        <th className="px-5 py-3 text-left text-xs font-semibold text-muted uppercase tracking-wide">Slug</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-black/8">
+                      {categories.map(cat => (
+                        <tr key={cat.id} className="hover:bg-black/1 transition-colors">
+                          <td className="px-5 py-4 font-medium text-dark">{cat.name}</td>
+                          <td className="px-5 py-4 text-body">{cat.slug}</td>
                         </tr>
                       ))}
                     </tbody>
