@@ -46,7 +46,7 @@ export default function HeroSection8() {
 
         {/* Subheadline */}
         <p className="mt-5 max-w-sm text-lg leading-relaxed text-body">
-          Vote with your dollars, support local businesses
+          Vote with your dollars, support local companies
         </p>
 
         {/* Search bar */}
