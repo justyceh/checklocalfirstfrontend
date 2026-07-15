@@ -1,4 +1,7 @@
+'use client';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { CHROMELESS_ROUTES } from '@/lib/chromelessRoutes';
 
 const INSTAGRAM_URL = '';
 const TIKTOK_URL = '';
@@ -22,6 +25,9 @@ const LEGAL_LINKS = [
 
 export default function Footer() {
   const year = new Date().getFullYear();
+  const pathname = usePathname();
+
+  if (CHROMELESS_ROUTES.includes(pathname)) return null;
 
   return (
     <footer className="bg-dark text-white/70">

@@ -1,8 +1,9 @@
 import Link from 'next/link';
-import type { ServiceResult } from '@/lib/types';
+import type { SearchResult } from '@/lib/types';
 
-export default function ServiceResultCard({ service }: { service: ServiceResult }) {
-  const biz = service.businesses;
+export default function ServiceResultCard({ result }: { result: SearchResult }) {
+  const biz = result.business;
+  const match = result.bestMatch;
 
   return (
     <Link
@@ -12,12 +13,16 @@ export default function ServiceResultCard({ service }: { service: ServiceResult 
       <div className="flex items-start justify-between gap-3">
         <h2 className="min-w-0 text-lg font-semibold text-dark leading-snug">{biz.name}</h2>
         <span className="max-w-[50%] shrink-0 truncate rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
-          {service.name}
+          {match.name}
         </span>
       </div>
 
-      {service.description && (
-        <p className="text-sm text-body leading-relaxed line-clamp-2">{service.description}</p>
+      {result.matchCount > 1 && (
+        <span className="text-xs font-medium text-muted">+{result.matchCount - 1} more</span>
+      )}
+
+      {match.description && (
+        <p className="text-sm text-body leading-relaxed line-clamp-2">{match.description}</p>
       )}
 
       <div className="mt-auto flex flex-col gap-1 pt-2 text-sm text-subtle">

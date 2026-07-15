@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { getAuth, clearAuth, getAuthHeaders } from '@/lib/auth';
 import { API_BASE_URL } from '@/lib/constants';
+import { CHROMELESS_ROUTES } from '@/lib/chromelessRoutes';
 
 const NAV_LINKS = [
   { label: 'Home', href: '/' },
@@ -86,6 +87,8 @@ export default function Navbar() {
       </button>
     </div>
   );
+
+  if (CHROMELESS_ROUTES.includes(pathname)) return null;
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">

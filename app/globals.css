@@ -17,6 +17,15 @@
 
 input[type="search"]::-webkit-search-cancel-button { display: none; }
 
+@keyframes shimmer-sweep {
+  0%   { transform: translateX(-150%) skewX(-20deg); }
+  100% { transform: translateX(150%) skewX(-20deg); }
+}
+
+.shimmer-sweep {
+  animation: shimmer-sweep 2.5s ease-in-out infinite;
+}
+
 @layer utilities {
   /* ── Text ── */
   .text-primary       { color: var(--color-primary); }

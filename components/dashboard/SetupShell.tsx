@@ -26,12 +26,10 @@ export default function SetupShell() {
     if (auth.accountType !== 'business') { router.push('/'); return }
 
     async function load() {
-      const auth = getAuth()!
       try {
-        const allBizRes = await fetch(`${API_BASE_URL}businesses`)
-        const allBiz: Business[] = allBizRes.ok ? await allBizRes.json() : []
-        const biz = allBiz.find(b => b.owner_user_id === auth.user_id)
-        if (!biz) { setLoading(false); return }
+        const meRes = await fetch(`${API_BASE_URL}businesses/me`, { headers: getAuthHeaders() })
+        if (!meRes.ok) { setLoading(false); return }
+        const biz: Business = await meRes.json()
         setBusiness(biz)
         setForm({
           name: biz.name ?? '',
@@ -108,6 +106,13 @@ export default function SetupShell() {
           <h1 className="text-2xl font-bold tracking-tight mb-1">Welcome to Check Local First!</h1>
           <p className="text-sm text-white/80">Let&apos;s get your business set up so customers can find and contact you.</p>
         </div>
+
+        {business.status === 'suspended' && (
+          <div className="mb-4 flex items-center gap-2 rounded-lg bg-amber-50 px-4 py-3 text-sm text-amber-700">
+            <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-amber-500" />
+            Waiting for admin approval — your listing won&apos;t appear publicly until it&apos;s approved.
+          </div>
+        )}
 
         {/* Step 1 — Business info */}
         <section className="rounded-2xl border border-black/10 bg-white p-6 shadow-sm mb-4">

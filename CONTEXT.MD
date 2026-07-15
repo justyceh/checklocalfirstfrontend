@@ -83,6 +83,8 @@ Slug is auto-generated from the business name.
 { "message": "User and Business account successfully created" }
 ```
 
+> The created business defaults to `status: "suspended"`. It stays hidden from all public endpoints (see the note above `BUSINESSES` below) until an admin sets it to `active` via `PATCH /admin/businesses/:id/status`. Use `GET /businesses/me` for the owner to fetch their own listing regardless of status.
+
 ---
 
 #### `POST /auth/login`
@@ -186,6 +188,30 @@ Returns all **active** business listings.
 Returns a single **active** business by slug. Suspended businesses will not resolve here, even with a direct link.
 
 **Response `200`:** Single business object (same shape as above).
+
+---
+
+#### `GET /businesses/me`
+🔒 Requires auth.
+Returns the currently logged-in owner's own business, regardless of `status`. This is how a business owner sees their listing while it's still `suspended` awaiting admin approval (the public routes above won't return it).
+
+**Response `200`:** The business object directly (same shape as `GET /businesses` items, including `status`), not wrapped in a `message`/`data` envelope:
+```json
+{
+  "id": 12,
+  "owner_user_id": "uuid",
+  "name": "string",
+  "slug": "string",
+  "description": "string",
+  "address": "string",
+  "city": "string",
+  "state": "string",
+  "zip": "string",
+  "phone": "string",
+  "email": "string",
+  "status": "active" | "suspended"
+}
+```
 
 ---
 

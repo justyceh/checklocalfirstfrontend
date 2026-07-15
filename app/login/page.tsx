@@ -42,9 +42,10 @@ export default function LoginPage() {
       if (data.accountType !== 'business') {
         router.push('/')
       } else {
-        const allBizRes = await fetch(`${API_BASE_URL}businesses`)
-        const allBiz = allBizRes.ok ? await allBizRes.json() : []
-        const biz = allBiz.find((b: { owner_user_id?: string }) => b.owner_user_id === data.user_id)
+        const meRes = await fetch(`${API_BASE_URL}businesses/me`, {
+          headers: { Authorization: `Bearer ${data.access_token}` },
+        })
+        const biz = meRes.ok ? await meRes.json() : null
         if (biz) {
           const svcRes = await fetch(`${API_BASE_URL}businesses/${biz.slug}/services`)
           const svcBody = svcRes.ok ? await svcRes.json() : { data: [] }

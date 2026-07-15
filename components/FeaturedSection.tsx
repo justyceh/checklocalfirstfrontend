@@ -4,6 +4,18 @@ import { findPhoto } from '@/lib/server-utils';
 import type { Business } from '@/lib/types';
 import BusinessCard from '@/components/BusinessCard';
 
+// ─── Editable content ────────────────────────────────────────────────────────
+
+const CONTENT = {
+  eyebrow: 'Reno, NV',
+  heading: 'Meet Your Neighbors',
+  viewAllDesktop: 'View all →',
+  viewAllMobile: 'View all businesses →',
+  viewAllHref: '/businesses',
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
+
 export default async function FeaturedSection() {
   let businesses: Business[] = [];
   try {
@@ -30,17 +42,17 @@ export default async function FeaturedSection() {
         <div className="mb-10 flex items-end justify-between">
           <div>
             <p className="mb-1 text-xs font-semibold uppercase tracking-widest text-primary">
-              Reno, NV
+              {CONTENT.eyebrow}
             </p>
             <h2 className="text-3xl font-bold tracking-tight text-dark">
-              Meet Your Neighbors
+              {CONTENT.heading}
             </h2>
           </div>
           <Link
-            href="/businesses"
+            href={CONTENT.viewAllHref}
             className="hidden text-sm font-medium text-primary hover:underline sm:block"
           >
-            View all →
+            {CONTENT.viewAllDesktop}
           </Link>
         </div>
 
@@ -56,10 +68,10 @@ export default async function FeaturedSection() {
 
         <div className="mt-8 text-center sm:hidden">
           <Link
-            href="/businesses"
+            href={CONTENT.viewAllHref}
             className="inline-flex items-center gap-2 rounded-lg border border-black/15 px-5 py-2.5 text-sm font-medium text-body transition-colors hover:bg-black/5"
           >
-            View all businesses →
+            {CONTENT.viewAllMobile}
           </Link>
         </div>
 

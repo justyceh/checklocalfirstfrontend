@@ -17,6 +17,7 @@ export type Business = {
   phone?: string | null
   email?: string | null
   website?: string | null
+  status?: 'active' | 'suspended'
   [key: string]: unknown
 }
 
@@ -29,11 +30,9 @@ export type BusinessService = {
   category_id: string
 }
 
-export type ServiceResult = {
-  id: string
-  name: string
-  description?: string | null
-  category_id: string
-  businesses: Business
-  [key: string]: unknown
+export type SearchResult = {
+  business: Business
+  bestMatch: BusinessService
+  matchingServices: BusinessService[]
+  matchCount: number
 }
