@@ -35,7 +35,7 @@ export default function WaitlistPage() {
 
         <div className="flex w-full max-w-sm items-center rounded-2xl border border-white/25 bg-white/10 p-6 text-center text-white backdrop-blur-md [text-shadow:0_2px_8px_rgba(0,0,0,0.8)] md:text-left">
           <p className="text-base leading-relaxed sm:text-lg">
-            The first 20 people to sign up get a free month of Premium access when we launch.
+            The first 100 people to sign up get a free month of Premium access when we launch. This includes exclusive discounts to your favorite Reno businesses.
           </p>
         </div>
       </div>

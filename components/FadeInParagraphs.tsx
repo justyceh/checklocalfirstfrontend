@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 
 const PARAGRAPHS = [
   'Something new is coming to Reno.',
-  'A directory built for real local businesses.',
-  'Not a review site — just community, supporting itself.',
+  'A directory built to help you find real local businesses.',
+  'Making it easier to support your neighbors instead of billionaires.',
   'Launching soon.',
 ];
 
