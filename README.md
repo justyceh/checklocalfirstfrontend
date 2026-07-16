@@ -2,6 +2,9 @@
 
 A full-stack web platform that helps users discover and support local businesses while giving business owners the tools to manage their online presence.
 
+<img width="1913" height="887" alt="image" src="https://github.com/user-attachments/assets/b6650ca6-2bf5-4630-85a4-cc8e2844eeff" />
+
+
 🌐 **Live Website:** https://checklocalfirst.com
 
 ## Tech Stack
